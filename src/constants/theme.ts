@@ -14,6 +14,7 @@ const DEFAULT_THEME: Theme & {
     };
     input: {
       backgroundColor: string;
+      textColor: string;
       borderColor: string;
       borderRadius: number;
       padding: number;

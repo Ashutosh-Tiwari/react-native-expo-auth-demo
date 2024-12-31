@@ -1,15 +1,15 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { SignUpNavProps } from "../../navigation/SignUp/paramList";
+import CustomButton from "components/CustomButton";
 
 const SignUpPhoneNumberScreen = ({
   navigation,
-  route,
 }: SignUpNavProps<"SignUpPhoneNumberScreen">) => {
   return (
     <View style={styles.container}>
       <Text>Phone Number Screen</Text>
-      <Button
+      <CustomButton
         title="Sign In"
         onPress={() => navigation.navigate("SignUpOTPVerificationScreen")}
       />
