@@ -10,7 +10,7 @@ const App = () => {
   );
 };
 
-// TODO: add prettier, eslint, path alias, implement testing framework (if time permits)
+// TODO: create custom component Typography, implement testing framework (if time permits)
 
 const styles = StyleSheet.create({
   container: {
