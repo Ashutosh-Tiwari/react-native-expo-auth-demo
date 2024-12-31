@@ -3,7 +3,7 @@ import { SignUpNavProps } from "navigation/SignUp/paramList";
 import React from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 
-const SignInNameScreen = ({
+const SignUpNameScreen = ({
   navigation,
   route,
 }: SignUpNavProps<"SignUpNameScreen">) => {
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignInNameScreen;
+export default SignUpNameScreen;

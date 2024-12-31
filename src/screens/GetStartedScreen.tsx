@@ -8,26 +8,28 @@ const GetStartedScreen = ({ navigation }: RootNavProps<"GetStarted">) => {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Text style={styles.text}>Get Started</Text>
+      <Text style={styles.textBold}>Get Started</Text>
       <Text style={styles.text}>
         By signing up or creating account, you agree to our terms and policies.
       </Text>
-      <CustomButton
-        title="Create Account"
-        onPress={() => {
-          navigation.navigate("SignUpNavigator", {
-            screen: "SignUpPhoneNumberScreen",
-          });
-        }}
-      />
-      <CustomButton
-        title="Sign In"
-        onPress={() =>
-          navigation.navigate("SignInNavigator", {
-            screen: "SignInPhoneNumberScreen",
-          })
-        }
-      />
+      <View style={styles.buttonContainer}>
+        <CustomButton
+          title="Create account"
+          onPress={() => {
+            navigation.navigate("SignUpNavigator", {
+              screen: "SignUpPhoneNumberScreen",
+            });
+          }}
+        />
+        <CustomButton
+          title="Sign in"
+          onPress={() =>
+            navigation.navigate("SignInNavigator", {
+              screen: "SignInPhoneNumberScreen",
+            })
+          }
+        />
+      </View>
     </View>
   );
 };
@@ -35,11 +37,21 @@ const GetStartedScreen = ({ navigation }: RootNavProps<"GetStarted">) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     alignItems: "center",
+    padding: 16,
+  },
+  buttonContainer: {
+    gap: 18,
   },
   text: {
-    fontSize: 20,
+    fontSize: 16,
+    justifyContent: "center",
+    textAlign: "center",
+  },
+  textBold: {
+    fontSize: 24,
+    fontWeight: "bold",
   },
 });
 

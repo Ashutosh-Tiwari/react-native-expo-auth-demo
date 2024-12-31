@@ -14,12 +14,8 @@ const Routing = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer theme={DEFAULT_THEME}>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="GetStarted"
-            component={GetStartedScreen}
-            options={{ headerShown: false }}
-          />
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="GetStarted" component={GetStartedScreen} />
           <Stack.Screen name="SignInNavigator" component={SignInNavigator} />
           <Stack.Screen name="SignUpNavigator" component={SignUpNavigator} />
         </Stack.Navigator>

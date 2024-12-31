@@ -1,4 +1,5 @@
 import { useTheme } from "@react-navigation/native";
+import COLORS from "constants/color";
 import DEFAULT_THEME from "constants/theme";
 import React from "react";
 import {
@@ -22,11 +23,10 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   textStyle,
 }) => {
   const { components, colors } = useTheme() as typeof DEFAULT_THEME;
-  const { backgroundColor, borderRadius, padding } = components.button;
 
   return (
     <TouchableOpacity
-      style={[{ backgroundColor, borderRadius, padding }, styles.button, style]}
+      style={[{ ...components.button }, styles.button, style]}
       onPress={onPress}
     >
       <Text style={[{ color: colors.text }, styles.buttonText, textStyle]}>
@@ -38,12 +38,14 @@ const CustomButton: React.FC<CustomButtonProps> = ({
 
 const styles = StyleSheet.create({
   button: {
-    justifyContent: "center",
-    alignItems: "center",
+    elevation: 8,
+    borderColor: COLORS.border,
+    fontWeight: "700",
+    borderWidth: 1,
   },
   buttonText: {
-    color: "#FFFFFF",
     fontSize: 16,
+    fontWeight: "bold",
   },
 });
 
