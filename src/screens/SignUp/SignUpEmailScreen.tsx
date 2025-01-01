@@ -4,7 +4,7 @@ import ScreenWrapper from "components/ScreenWrapper";
 import COLORS from "constants/color";
 import { SignUpNavProps } from "navigation/SignUp/paramList";
 import React from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
 const SignUpEmailScreen = ({
   navigation,
@@ -18,11 +18,7 @@ const SignUpEmailScreen = ({
 
   return (
     <ScreenWrapper>
-      <CustomInput
-        style={styles.input}
-        placeholder="Enter your email"
-        keyboardType="numeric"
-      />
+      <CustomInput placeholder="Enter your email" keyboardType="numeric" />
       <CustomButton title="Next" style={styles.button} onPress={handleSignIn} />
     </ScreenWrapper>
   );
@@ -30,11 +26,6 @@ const SignUpEmailScreen = ({
 
 const styles = StyleSheet.create({
   button: { marginHorizontal: 24, marginTop: 24 },
-  input: {
-    width: "100%",
-    borderBottomWidth: 1,
-    color: COLORS.black,
-  },
 });
 
 export default SignUpEmailScreen;

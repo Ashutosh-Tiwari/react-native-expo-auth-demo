@@ -79,7 +79,7 @@ const DEFAULT_THEME: Theme & {
     input: {
       backgroundColor: COLORS.white,
       textColor: COLORS.black,
-      borderColor: COLORS.primaryLight,
+      borderColor: COLORS.black,
       borderRadius: 8,
       padding: 16,
     },

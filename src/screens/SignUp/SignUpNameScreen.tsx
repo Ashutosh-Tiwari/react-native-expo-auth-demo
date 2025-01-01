@@ -1,7 +1,9 @@
-import { SignInNavProps } from "navigation/SignIn/paramList";
+import CustomButton from "components/CustomButton";
+import CustomInput from "components/CustomInput";
+import ScreenWrapper from "components/ScreenWrapper";
 import { SignUpNavProps } from "navigation/SignUp/paramList";
 import React from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
 const SignUpNameScreen = ({
   navigation,
@@ -18,36 +20,19 @@ const SignUpNameScreen = ({
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>Enter your name:</Text>
-      <TextInput
-        style={styles.input}
+    <ScreenWrapper>
+      <CustomInput
         value={name}
         onChangeText={handleNameChange}
-        placeholder="Name"
+        placeholder="Enter first name"
       />
-      <Button title="Submit" onPress={handleSubmit} />
-    </View>
+      <CustomButton title="Next" style={styles.button} onPress={handleSubmit} />
+    </ScreenWrapper>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 16,
-  },
-  label: {
-    fontSize: 18,
-    marginBottom: 8,
-  },
-  input: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    marginBottom: 16,
-    paddingHorizontal: 8,
-  },
+  button: { marginHorizontal: 24, marginTop: 24 },
 });
 
 export default SignUpNameScreen;
