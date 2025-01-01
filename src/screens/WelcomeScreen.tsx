@@ -1,22 +1,30 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { SignUpNavProps } from "../navigation/SignUp/paramList";
+import { Text, StyleSheet } from "react-native";
 import { RootNavProps } from "../navigation/Routing/paramList";
+import ScreenWrapper from "components/ScreenWrapper";
 
-const WelcomeScreen = ({ navigation, route }: RootNavProps<"Welcome">) => {
+const WelcomeScreen = ({
+  navigation,
+  route,
+}: RootNavProps<"WelcomeScreen">) => {
+  const { firstName, phoneNumber, email, location, hobbies, startSign } =
+    route.params;
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome to the App!</Text>
-    </View>
+    <ScreenWrapper style={styles.container}>
+      <Text>{`Good morning/evening FIRSTNAME\n`}</Text>
+      <Text>Your phone number is: </Text>
+      <Text>Your phone number is: </Text>
+      <Text>Your email is: </Text>
+      <Text>You are located in </Text>
+      <Text>Your hobbies are </Text>
+      <Text>Your start sign is </Text>
+    </ScreenWrapper>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff",
+    marginHorizontal: 18,
   },
   title: {
     fontSize: 24,

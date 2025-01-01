@@ -73,7 +73,6 @@ const SignUpNavigator = () => {
         name="SignUpAboutMeScreen"
         component={SignUpAboutMeScreen}
         options={{
-          headerShown: true,
           title: "About me",
         }}
       />

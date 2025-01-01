@@ -4,7 +4,7 @@ import { RootNavProps } from "../navigation/Routing/paramList";
 import CustomButton from "components/CustomButton";
 import ScreenWrapper from "components/ScreenWrapper";
 
-const GetStartedScreen = ({ navigation }: RootNavProps<"GetStarted">) => {
+const GetStartedScreen = ({ navigation }: RootNavProps<"GetStartedScreen">) => {
   return (
     <ScreenWrapper style={styles.container}>
       <Text style={styles.textBold}>Get Started</Text>

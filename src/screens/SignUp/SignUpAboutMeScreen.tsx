@@ -72,6 +72,13 @@ const SignUpAboutMeScreen = ({
     );
   };
 
+  const handleNext = () => {
+    navigation.getParent()?.reset({
+      index: 0,
+      routes: [{ name: "WelcomeScreen" }],
+    });
+  };
+
   return (
     <ScreenWrapper style={styles.container}>
       {renderSectionUIs("My interests")}
@@ -81,7 +88,7 @@ const SignUpAboutMeScreen = ({
       <CustomButton
         style={styles.button}
         title="Next"
-        onPress={() => {}}
+        onPress={handleNext}
         disabled={!selectedInterest || !selectedSign}
       />
     </ScreenWrapper>
