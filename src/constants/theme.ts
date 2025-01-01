@@ -78,7 +78,7 @@ const DEFAULT_THEME: Theme & {
     },
     input: {
       backgroundColor: COLORS.white,
-      textColor: COLORS.input_placeholder_gray,
+      textColor: COLORS.black,
       borderColor: COLORS.primaryLight,
       borderRadius: 8,
       padding: 16,

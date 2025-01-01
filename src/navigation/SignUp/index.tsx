@@ -1,7 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SignUpNavigatorParamList } from "./paramList";
-import SignUpPhoneNumberScreen from "screens/SignUp/SignInPhoneNumberScreen";
+import SignUpPhoneNumberScreen from "screens/SignUp/SignUpPhoneNumberScreen";
 import SignUpOTPVerificationScreen from "screens/SignUp/SignUpOTPVerificationScreen";
 import SignUpEmailScreen from "screens/SignUp/SignUpEmailScreen";
 import SignUpEmailVerificationScreen from "screens/SignUp/SignUpEmailVerificationScreen";
@@ -32,12 +32,18 @@ const SignUpNavigator = () => {
       <Stack.Screen
         name="SignUpOTPVerificationScreen"
         component={SignUpOTPVerificationScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerTitle: "Enter your code",
+          headerTitleStyle: { fontWeight: "bold" },
+        }}
       />
       <Stack.Screen
         name="SignUpEmailScreen"
         component={SignUpEmailScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerTitle: "Enter your email",
+          headerTitleStyle: { fontWeight: "bold" },
+        }}
       />
       <Stack.Screen
         name="SignUpEmailVerificationScreen"
