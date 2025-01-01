@@ -58,7 +58,10 @@ const SignUpNavigator = () => {
       <Stack.Screen
         name="SignUpAboutMeScreen"
         component={SignUpAboutMeScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: true,
+          title: "About me",
+        }}
       />
     </Stack.Navigator>
   );
