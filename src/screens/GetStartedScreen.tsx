@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { RootNavProps } from "../navigation/Routing/paramList";
-import { StatusBar } from "expo-status-bar";
 import CustomButton from "components/CustomButton";
 import ScreenWrapper from "components/ScreenWrapper";
 
