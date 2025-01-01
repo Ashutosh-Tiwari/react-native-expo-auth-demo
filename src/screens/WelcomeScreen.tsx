@@ -11,13 +11,12 @@ const WelcomeScreen = ({
     route.params;
   return (
     <ScreenWrapper style={styles.container}>
-      <Text>{`Good morning/evening FIRSTNAME\n`}</Text>
-      <Text>Your phone number is: </Text>
-      <Text>Your phone number is: </Text>
-      <Text>Your email is: </Text>
-      <Text>You are located in </Text>
-      <Text>Your hobbies are </Text>
-      <Text>Your start sign is </Text>
+      <Text>{`Good morning/evening ${firstName ?? "first name"}\n`}</Text>
+      <Text>{`Your phone number is: ${phoneNumber ?? "phone"}`}</Text>
+      <Text>{`Your email is: ${email ?? "email"}`}</Text>
+      <Text>{`You are located in ${location ?? "India"}`}</Text>
+      <Text>{`Your hobbies are  ${hobbies.toString() ?? "hobbies"}`}</Text>
+      <Text>{`Your start sign is ${startSign ?? "star sign"}`}</Text>
     </ScreenWrapper>
   );
 };
