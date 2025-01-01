@@ -23,11 +23,7 @@ const SignUpEmailScreen = ({
         placeholder="Enter your email"
         keyboardType="numeric"
       />
-      <CustomButton
-        title="Next"
-        style={styles.button}
-        onPress={() => navigation.navigate("SignUpEmailVerificationScreen")}
-      />
+      <CustomButton title="Next" style={styles.button} onPress={handleSignIn} />
     </ScreenWrapper>
   );
 };

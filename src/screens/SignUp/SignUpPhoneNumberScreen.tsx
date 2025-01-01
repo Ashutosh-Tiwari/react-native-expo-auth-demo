@@ -22,7 +22,7 @@ const SignUpPhoneNumberScreen = ({
       </Text>
 
       <CustomButton
-        title="Sign Up"
+        title="Next"
         style={{ marginHorizontal: 24 }}
         onPress={() => navigation.navigate("SignUpOTPVerificationScreen")}
       />

@@ -48,7 +48,10 @@ const SignUpNavigator = () => {
       <Stack.Screen
         name="SignUpEmailVerificationScreen"
         component={SignUpEmailVerificationScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerTitle: "Enter your code",
+          headerTitleStyle: { fontWeight: "bold" },
+        }}
       />
       <Stack.Screen
         name="SignUpNameScreen"
