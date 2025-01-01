@@ -1,45 +1,59 @@
 import React from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  Linking,
+} from "react-native";
 import { SignUpNavProps } from "navigation/SignUp/paramList";
+import ScreenWrapper from "components/ScreenWrapper";
+import CustomButton from "components/CustomButton";
+import CustomInput from "components/CustomInput";
+import COLORS from "constants/color";
 
 const SignUpOTPVerificationScreen = ({
   navigation,
   route,
 }: SignUpNavProps<"SignUpOTPVerificationScreen">) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>OTP Verification</Text>
-      <TextInput
+    <ScreenWrapper style={styles.container}>
+      <CustomInput
         style={styles.input}
-        placeholder="Enter OTP"
+        placeholder="Enter your code"
         keyboardType="numeric"
       />
-      <Button
-        title="Verify OTP"
+      <Text>
+        We will text you a code to verify you're really you. Message and rates
+        may apply.
+      </Text>
+      <Text
+        style={styles.hyperlink}
+        onPress={() => Linking.openURL("http://google.com")}
+      >
+        What happens if my number changes?
+      </Text>
+      <CustomButton
+        title="Next"
+        style={styles.button}
         onPress={() => navigation.navigate("SignUpEmailScreen")}
       />
-    </View>
+    </ScreenWrapper>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 16,
+    rowGap: 16,
   },
   input: {
     width: "100%",
-    padding: 8,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    marginBottom: 16,
+    borderBottomWidth: 1,
+    color: COLORS.black,
   },
+  button: { marginHorizontal: 24, marginTop: 24 },
+  hyperlink: { color: COLORS.blue, textDecorationLine: "underline" },
 });
 
 export default SignUpOTPVerificationScreen;

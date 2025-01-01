@@ -3,11 +3,11 @@ import { View, Text, StyleSheet } from "react-native";
 import { RootNavProps } from "../navigation/Routing/paramList";
 import { StatusBar } from "expo-status-bar";
 import CustomButton from "components/CustomButton";
+import ScreenWrapper from "components/ScreenWrapper";
 
 const GetStartedScreen = ({ navigation }: RootNavProps<"GetStarted">) => {
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
+    <ScreenWrapper style={styles.container}>
       <Text style={styles.textBold}>Get Started</Text>
       <Text style={styles.text}>
         By signing up or creating account, you agree to our terms and policies.
@@ -30,19 +30,19 @@ const GetStartedScreen = ({ navigation }: RootNavProps<"GetStarted">) => {
           }
         />
       </View>
-    </View>
+    </ScreenWrapper>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: "space-evenly",
     alignItems: "center",
-    padding: 16,
   },
   buttonContainer: {
     gap: 18,
+    width: "100%",
+    paddingHorizontal: 24,
   },
   text: {
     fontSize: 16,
