@@ -8,17 +8,30 @@ import SignUpEmailVerificationScreen from "screens/SignUp/SignUpEmailVerificatio
 import SignUpAboutMeScreen from "screens/SignUp/SignUpAboutMeScreen";
 import SignUpNameScreen from "screens/SignUp/SignUpNameScreen";
 import COLORS from "constants/color";
-import SvgArrowBack from "assets/svg/arrow_back.svg";
+import SvgArrowBack from "../../../assets/svgs/arrow_back.svg";
 
 const Stack = createNativeStackNavigator<SignUpNavigatorParamList>();
 
+const HeaderLeft = ({ onPress }: { onPress: () => void }) => {
+  return (
+    <SvgArrowBack
+      width={24}
+      height={24}
+      fill={COLORS.black}
+      onPress={onPress}
+    />
+  );
+};
 const SignUpNavigator = () => {
   return (
     <Stack.Navigator
-      screenOptions={{
+      screenOptions={({ navigation }) => ({
         headerStyle: { backgroundColor: COLORS.background },
         headerShadowVisible: false,
-      }}
+        headerBackVisible: false,
+        headerTitleStyle: { fontWeight: "bold" },
+        headerLeft: () => <HeaderLeft onPress={() => navigation.goBack()} />,
+      })}
       initialRouteName="SignUpPhoneNumberScreen"
     >
       <Stack.Screen
@@ -26,7 +39,6 @@ const SignUpNavigator = () => {
         component={SignUpPhoneNumberScreen}
         options={{
           headerTitle: "Enter your phone number",
-          headerTitleStyle: { fontWeight: "bold" },
         }}
       />
       <Stack.Screen
@@ -34,7 +46,6 @@ const SignUpNavigator = () => {
         component={SignUpOTPVerificationScreen}
         options={{
           headerTitle: "Enter your code",
-          headerTitleStyle: { fontWeight: "bold" },
         }}
       />
       <Stack.Screen
@@ -42,18 +53,21 @@ const SignUpNavigator = () => {
         component={SignUpEmailScreen}
         options={{
           headerTitle: "Enter your email",
-          headerTitleStyle: { fontWeight: "bold" },
         }}
       />
       <Stack.Screen
         name="SignUpEmailVerificationScreen"
         component={SignUpEmailVerificationScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerTitle: "Enter your code",
+        }}
       />
       <Stack.Screen
         name="SignUpNameScreen"
         component={SignUpNameScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerTitle: "Enter first name",
+        }}
       />
       <Stack.Screen
         name="SignUpAboutMeScreen"
