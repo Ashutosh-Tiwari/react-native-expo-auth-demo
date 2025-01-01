@@ -19,11 +19,7 @@ const SignUpOTPVerificationScreen = ({
 }: SignUpNavProps<"SignUpOTPVerificationScreen">) => {
   return (
     <ScreenWrapper style={styles.container}>
-      <CustomInput
-        style={styles.input}
-        placeholder="Enter your code"
-        keyboardType="numeric"
-      />
+      <CustomInput placeholder="Enter your code" keyboardType="numeric" />
       <Text>
         We will text you a code to verify you're really you. Message and rates
         may apply.
@@ -46,11 +42,6 @@ const SignUpOTPVerificationScreen = ({
 const styles = StyleSheet.create({
   container: {
     rowGap: 16,
-  },
-  input: {
-    width: "100%",
-    borderBottomWidth: 1,
-    color: COLORS.black,
   },
   button: { marginHorizontal: 24, marginTop: 24 },
   hyperlink: { color: COLORS.blue, textDecorationLine: "underline" },

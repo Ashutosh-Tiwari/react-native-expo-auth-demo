@@ -9,15 +9,14 @@ const CustomInput: React.FC<TextInputProps> = (props) => {
 
   return (
     <TextInput
-      style={[
-        styles.input,
-        {
-          backgroundColor: components.input.backgroundColor,
-          color: components.input.textColor,
-          borderColor: components.input.borderColor,
-          padding: components.input.padding,
-        },
-      ]}
+      style={{
+        color: components.input.textColor,
+        borderColor: components.input.borderColor,
+        padding: components.input.padding,
+        fontSize: 16,
+        width: "100%",
+        borderBottomWidth: 1,
+      }}
       {...props}
       placeholderTextColor={COLORS.input_placeholder_gray}
     />
@@ -26,10 +25,10 @@ const CustomInput: React.FC<TextInputProps> = (props) => {
 
 const styles = StyleSheet.create({
   input: {
-    borderWidth: 1,
     fontSize: 16,
     width: "100%",
-    borderRadius: 14,
+    borderBottomWidth: 1,
+    color: COLORS.black,
   },
 });
 
