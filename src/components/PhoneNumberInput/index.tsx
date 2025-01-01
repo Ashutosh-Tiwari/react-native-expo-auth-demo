@@ -20,7 +20,7 @@ const PhoneNumberInput: React.FC<MobileInputProps> = (props) => {
       },
       cotainer: {
         borderWidth: 1,
-        borderColor: components.input.borderColor,
+        borderColor: colors.primary,
         borderRadius: 8,
         paddingHorizontal: 14,
         flexDirection: "row",

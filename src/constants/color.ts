@@ -9,6 +9,7 @@ const COLORS = {
   input_placeholder_gray: "#808080",
   border: "#605f63",
   blue: "#3317d3",
+  capsulePink: "#f4e1e1",
 };
 
 export default COLORS;

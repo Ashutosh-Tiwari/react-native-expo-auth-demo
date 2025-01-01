@@ -14,6 +14,7 @@ interface CustomButtonProps {
   onPress: (event: GestureResponderEvent) => void;
   style?: object;
   textStyle?: object;
+  disabled?: boolean;
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
@@ -21,12 +22,19 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   onPress,
   style,
   textStyle,
+  disabled = false,
 }) => {
   const { components, colors } = useTheme() as typeof DEFAULT_THEME;
 
   return (
     <TouchableOpacity
-      style={[{ ...components.button }, styles.button, style]}
+      style={[
+        { ...components.button },
+        styles.button,
+        style,
+        { opacity: disabled ? 0.5 : 1 },
+      ]}
+      disabled={disabled}
       onPress={onPress}
     >
       <Text style={[{ color: colors.text }, styles.buttonText, textStyle]}>
