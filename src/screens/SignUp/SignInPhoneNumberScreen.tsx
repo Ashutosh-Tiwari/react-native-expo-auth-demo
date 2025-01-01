@@ -9,7 +9,7 @@ const SignUpPhoneNumberScreen = ({
 }: SignUpNavProps<"SignUpPhoneNumberScreen">) => {
   return (
     <View style={styles.container}>
-      <CustomInput placeholder="Enter your name" />
+      <CustomInput placeholder="Enter your name" style={{ width: "100%" }} />
       <CustomButton
         title="Sign In"
         onPress={() => navigation.navigate("SignUpOTPVerificationScreen")}
@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    padding: 16,
   },
 });
 
