@@ -51,6 +51,8 @@ const styles = StyleSheet.create({
   textBold: {
     fontSize: 24,
     fontWeight: "bold",
+    alignSelf: "flex-start",
+    marginStart: 24,
   },
 });
 
