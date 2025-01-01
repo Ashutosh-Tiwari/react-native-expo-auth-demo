@@ -75,7 +75,19 @@ const SignUpAboutMeScreen = ({
   const handleNext = () => {
     navigation.getParent()?.reset({
       index: 0,
-      routes: [{ name: "WelcomeScreen" }],
+      routes: [
+        {
+          name: "WelcomeScreen",
+          params: {
+            firstName: "Ashutosh Tiwari",
+            phoneNumber: "1234",
+            email: "ashutosh.tiwari@live.com",
+            location: "India",
+            hobbies: ["Reading", "Coding"],
+            startSign: "DonNotKnow",
+          },
+        },
+      ],
     });
   };
 
