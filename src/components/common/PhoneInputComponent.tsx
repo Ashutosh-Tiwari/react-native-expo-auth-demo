@@ -21,7 +21,7 @@ const PhoneInputComponent: React.FC<{ onPress: () => void }> = ({
 
       <CustomButton
         title="Next"
-        style={{ marginHorizontal: 24 }}
+        style={{ marginHorizontal: 24, marginTop: "10%" }}
         onPress={onPress}
       />
     </>

@@ -32,7 +32,7 @@ const SignUpNameScreen = ({
 };
 
 const styles = StyleSheet.create({
-  button: { marginHorizontal: 24, marginTop: 24 },
+  button: { marginHorizontal: 24, marginTop: "40%" },
 });
 
 export default SignUpNameScreen;

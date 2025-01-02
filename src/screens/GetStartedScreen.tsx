@@ -18,6 +18,14 @@ const GetStartedScreen = ({ navigation }: RootNavProps<"GetStartedScreen">) => {
             navigation.navigate("SignUpNavigator", {
               screen: "SignUpPhoneNumberScreen",
             });
+            // navigation.navigate("WelcomeScreen", {
+            //   firstName: "John",
+            //   phoneNumber: "1234567890",
+            //   email: "email",
+            //   location: "location",
+            //   hobbies: ["Abc", "Def"],
+            //   startSign: "Star sign",
+            // });
           }}
         />
         <CustomButton

@@ -3,7 +3,7 @@ import CustomInput from "components/CustomInput";
 import ScreenWrapper from "components/ScreenWrapper";
 import { SignUpNavProps } from "navigation/SignUp/paramList";
 import React from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
 const SignUpEmailVerificationScreen = ({
   navigation,
@@ -29,7 +29,7 @@ const SignUpEmailVerificationScreen = ({
 };
 
 const styles = StyleSheet.create({
-  button: { marginHorizontal: 24, marginTop: 24 },
+  button: { marginHorizontal: 24, marginTop: "40%" },
 });
 
 export default SignUpEmailVerificationScreen;
