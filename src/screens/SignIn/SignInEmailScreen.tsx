@@ -1,6 +1,9 @@
 import React from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { SignInNavProps } from "../../navigation/SignIn/paramList";
+import ScreenWrapper from "components/ScreenWrapper";
+import CustomInput from "components/CustomInput";
+import CustomButton from "components/CustomButton";
 
 const SignInEmailScreen = ({
   navigation,
@@ -13,39 +16,15 @@ const SignInEmailScreen = ({
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Sign In</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <Button title="Sign In" onPress={handleSignIn} />
-    </View>
+    <ScreenWrapper>
+      <CustomInput placeholder="Enter your email" keyboardType="numeric" />
+      <CustomButton title="Next" style={styles.button} onPress={handleSignIn} />
+    </ScreenWrapper>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 16,
-    textAlign: "center",
-  },
-  input: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    marginBottom: 12,
-    paddingHorizontal: 8,
-  },
+  button: { marginHorizontal: 24, marginTop: "40%" },
 });
 
 export default SignInEmailScreen;

@@ -1,7 +1,6 @@
 import CustomButton from "components/CustomButton";
 import CustomInput from "components/CustomInput";
 import ScreenWrapper from "components/ScreenWrapper";
-import COLORS from "constants/color";
 import { SignUpNavProps } from "navigation/SignUp/paramList";
 import React from "react";
 import { StyleSheet } from "react-native";
@@ -25,7 +24,7 @@ const SignUpEmailScreen = ({
 };
 
 const styles = StyleSheet.create({
-  button: { marginHorizontal: 24, marginTop: 24 },
+  button: { marginHorizontal: 24, marginTop: "40%" },
 });
 
 export default SignUpEmailScreen;

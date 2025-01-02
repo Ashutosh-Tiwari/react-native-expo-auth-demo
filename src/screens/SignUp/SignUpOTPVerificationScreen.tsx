@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  StyleSheet,
-  Linking,
-} from "react-native";
+import { Text, StyleSheet, Linking } from "react-native";
 import { SignUpNavProps } from "navigation/SignUp/paramList";
 import ScreenWrapper from "components/ScreenWrapper";
 import CustomButton from "components/CustomButton";

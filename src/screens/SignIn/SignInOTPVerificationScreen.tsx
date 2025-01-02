@@ -1,45 +1,28 @@
 import React from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { SignInNavProps } from "../../navigation/SignIn/paramList";
+import CustomInput from "components/CustomInput";
+import CustomButton from "components/CustomButton";
+import ScreenWrapper from "components/ScreenWrapper";
 
 const SignInOTPVerificationScreen = ({
   navigation,
   route,
 }: SignInNavProps<"SignInOTPVerificationScreen">) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>OTP Verification</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter OTP"
-        keyboardType="numeric"
-      />
-      <Button
-        title="Verify OTP"
+    <ScreenWrapper>
+      <CustomInput placeholder="Enter your code" keyboardType="numeric" />
+      <CustomButton
+        title="Next"
+        style={styles.button}
         onPress={() => navigation.navigate("SignInEmailScreen")}
       />
-    </View>
+    </ScreenWrapper>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 16,
-  },
-  input: {
-    width: "100%",
-    padding: 8,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    marginBottom: 16,
-  },
+  button: { marginHorizontal: 24, marginTop: "40%" },
 });
 
 export default SignInOTPVerificationScreen;
