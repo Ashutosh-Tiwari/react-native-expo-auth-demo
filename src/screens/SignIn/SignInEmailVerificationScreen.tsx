@@ -1,6 +1,9 @@
 import React from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { SignInNavProps } from "../../navigation/SignIn/paramList";
+import ScreenWrapper from "components/ScreenWrapper";
+import CustomInput from "components/CustomInput";
+import CustomButton from "components/CustomButton";
 
 const SignInEmailVerificationScreen = ({
   navigation,
@@ -9,42 +12,33 @@ const SignInEmailVerificationScreen = ({
   const [verificationCode, setVerificationCode] = React.useState("");
 
   const handleVerify = () => {
-    // TODO: navigate to welcome screen
+    navigation.getParent()?.reset({
+      index: 0,
+      routes: [
+        {
+          name: "WelcomeScreen",
+          params: {
+            firstName: "Paresh Mayani",
+            phoneNumber: "0123456789",
+            email: "paresh.mayani@solguruz.com",
+            hobbies: ["Sports", "Cooking"],
+            startSign: "Aries",
+          },
+        },
+      ],
+    });
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Email Verification</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter verification code"
-        value={verificationCode}
-        onChangeText={setVerificationCode}
-        keyboardType="numeric"
-      />
-      <Button title="Verify" onPress={handleVerify} />
-    </View>
+    <ScreenWrapper>
+      <CustomInput placeholder="Enter your code" keyboardType="numeric" />
+      <CustomButton title="Next" style={styles.button} onPress={handleVerify} />
+    </ScreenWrapper>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 16,
-    textAlign: "center",
-  },
-  input: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    marginBottom: 16,
-    paddingHorizontal: 8,
-  },
+  button: { marginHorizontal: 24, marginTop: "40%" },
 });
 
 export default SignInEmailVerificationScreen;
