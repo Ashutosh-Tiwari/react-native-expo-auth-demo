@@ -10,7 +10,8 @@ const SignUpPhoneNumberScreen = ({
   return (
     <ScreenWrapper style={styles.container}>
       <PhoneInputComponent
-        onPress={() => navigation.navigate("SignUpOTPVerificationScreen")}
+        onNextPress={() => navigation.navigate("SignUpOTPVerificationScreen")}
+        onChangeText={(text) => {}}
       />
     </ScreenWrapper>
   );

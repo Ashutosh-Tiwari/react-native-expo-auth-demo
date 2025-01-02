@@ -17,7 +17,11 @@ const SignUpEmailScreen = ({
 
   return (
     <ScreenWrapper>
-      <CustomInput placeholder="Enter your email" keyboardType="numeric" />
+      <CustomInput
+        placeholder="Enter your email"
+        autoCorrect={false}
+        autoCapitalize="none"
+      />
       <CustomButton title="Next" style={styles.button} onPress={handleSignIn} />
     </ScreenWrapper>
   );

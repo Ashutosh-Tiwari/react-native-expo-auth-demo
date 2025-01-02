@@ -1,16 +1,25 @@
 import CustomButton from "components/CustomButton";
 import PhoneNumberInput from "components/PhoneNumberInput";
 import React from "react";
-import { Text } from "react-native";
+import { Text, TextInputProps } from "react-native";
 
-const PhoneInputComponent: React.FC<{ onPress: () => void }> = ({
-  onPress,
+interface PhoneInputComponentProps extends TextInputProps {
+  onNextPress: () => void;
+  onChangeText: (text: string) => void;
+}
+
+const PhoneInputComponent: React.FC<PhoneInputComponentProps> = ({
+  onNextPress,
+  onChangeText,
+  value,
 }) => {
   return (
     <>
       <PhoneNumberInput
         placeholder="Enter your phone number"
         code="US +1"
+        value={value}
+        onChangeText={onChangeText}
         keyboardType="number-pad"
       />
       <Text>
@@ -21,8 +30,9 @@ const PhoneInputComponent: React.FC<{ onPress: () => void }> = ({
 
       <CustomButton
         title="Next"
+        // disabled={!value || value.length < 10}
         style={{ marginHorizontal: 24, marginTop: "10%" }}
-        onPress={onPress}
+        onPress={onNextPress}
       />
     </>
   );

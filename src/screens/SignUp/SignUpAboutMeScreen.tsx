@@ -16,7 +16,7 @@ const SignUpAboutMeScreen = ({
   navigation,
   route,
 }: SignUpNavProps<"SignUpAboutMeScreen">) => {
-  const [selectedInterest, setSelectedInterest] = useState<number | null>(null);
+  const [selectedInterests, setSelectedInterests] = useState<number[]>([]);
   const [selectedSign, setSelectedSign] = useState<number | null>(null);
 
   const renderSectionUIs = (sectionTitle: string) => {
@@ -29,7 +29,11 @@ const SignUpAboutMeScreen = ({
 
   const handleItemPress = (type: ABOUT_ME, id: number) => {
     if (type === "interests") {
-      setSelectedInterest(id);
+      setSelectedInterests((prev) =>
+        prev.includes(id)
+          ? prev.filter((interestId) => interestId !== id)
+          : [...prev, id]
+      );
     } else if (type === "signs") {
       setSelectedSign(id);
     }
@@ -37,7 +41,7 @@ const SignUpAboutMeScreen = ({
 
   const renderListItemUIs = (item: UserAboutModel, type: ABOUT_ME) => {
     const isSelected =
-      (type === "interests" && selectedInterest === item.id) ||
+      (type === "interests" && selectedInterests.includes(item.id)) ||
       (type === "signs" && selectedSign === item.id);
 
     return (
@@ -79,12 +83,14 @@ const SignUpAboutMeScreen = ({
         {
           name: "WelcomeScreen",
           params: {
-            firstName: "Ashutosh Tiwari",
-            phoneNumber: "1234",
-            email: "ashutosh.tiwari@live.com",
-            location: "India",
-            hobbies: ["Reading", "Coding"],
-            startSign: "DonNotKnow",
+            firstName: "Paresh Mayani",
+            phoneNumber: "0123456789",
+            email: "paresh.mayani@solguruz.com",
+            hobbies: selectedInterests.map(
+              (id) => arrayOfUserInterests.find((item) => item.id === id)?.name
+            ),
+            startSign: arrayOfUserSigns.find((item) => item.id === selectedSign)
+              ?.name,
           },
         },
       ],
@@ -101,7 +107,7 @@ const SignUpAboutMeScreen = ({
         style={styles.button}
         title="Next"
         onPress={handleNext}
-        disabled={!selectedInterest || !selectedSign}
+        disabled={selectedInterests.length === 0 || !selectedSign}
       />
     </ScreenWrapper>
   );
