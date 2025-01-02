@@ -1,26 +1,24 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { StyleSheet } from "react-native";
 import { SignInNavProps } from "../../navigation/SignIn/paramList";
+import ScreenWrapper from "components/ScreenWrapper";
+import PhoneInputComponent from "components/common/PhoneInputComponent";
 
 const SignInPhoneNumberScreen = ({
   navigation,
 }: SignInNavProps<"SignInPhoneNumberScreen">) => {
   return (
-    <View style={styles.container}>
-      <Text>Phone Number Screen</Text>
-      <Button
-        title="Next"
+    <ScreenWrapper style={styles.container}>
+      <PhoneInputComponent
         onPress={() => navigation.navigate("SignInOTPVerificationScreen")}
       />
-    </View>
+    </ScreenWrapper>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    rowGap: 16,
   },
 });
 
