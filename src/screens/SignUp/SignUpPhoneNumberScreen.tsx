@@ -7,6 +7,8 @@ import { phoneNumberSchema } from "src/utils/validationSchemas";
 import * as yup from "yup";
 import PhoneNumberInput from "components/PhoneNumberInput";
 import CustomButton from "components/CustomButton";
+import { useDispatch } from "react-redux";
+import { setPhoneNumber } from "src/redux/user/userSlice";
 
 interface FormikData {
   phoneNumber: string;
@@ -19,6 +21,8 @@ const schema = yup.object({
 const SignUpPhoneNumberScreen = ({
   navigation,
 }: SignUpNavProps<"SignUpPhoneNumberScreen">) => {
+  const dispatch = useDispatch();
+
   const {
     values,
     touched,
@@ -28,6 +32,7 @@ const SignUpPhoneNumberScreen = ({
     dirty,
     handleChange,
     handleBlur,
+    handleSubmit,
     setFieldTouched,
     setFieldError,
   } = useFormik<FormikData>({
@@ -35,25 +40,16 @@ const SignUpPhoneNumberScreen = ({
       phoneNumber: "",
     },
     validationSchema: schema,
-    onSubmit: () => {},
+    onSubmit: () => {
+      dispatch(setPhoneNumber(values.phoneNumber));
+      // TODO: send OTP API
+      navigation.navigate("SignUpOTPVerificationScreen");
+    },
   });
 
   // TODO: Extract common phone number input UI into a separate component
   return (
     <ScreenWrapper style={styles.container}>
-      {/* <PhoneInputComponent
-        onNextPress={() => navigation.navigate("SignUpOTPVerificationScreen")}
-        value={values.phoneNumber}
-        onChangeText={handleChange("phoneNumber")}
-        onBlur={handleBlur("phoneNumber")}
-        onFocus={() => {
-          setFieldError("phoneNumber", undefined);
-          setFieldTouched("phoneNumber", false);
-        }}
-        error={!!(touched.phoneNumber && errors.phoneNumber)}
-        helperText={"error"}
-      /> */}
-
       <PhoneNumberInput
         placeholder="Enter your phone number"
         code="US +1"
@@ -83,7 +79,7 @@ const SignUpPhoneNumberScreen = ({
         title="Next"
         disabled={!isValid || isSubmitting || (!dirty && isValid)}
         style={{ marginHorizontal: 24, marginTop: "10%" }}
-        onPress={() => navigation.navigate("SignUpOTPVerificationScreen")}
+        onPress={handleSubmit}
       />
     </ScreenWrapper>
   );
