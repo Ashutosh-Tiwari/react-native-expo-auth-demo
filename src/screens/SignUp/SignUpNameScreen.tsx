@@ -23,10 +23,6 @@ const SignUpNameScreen = ({
 }: SignUpNavProps<"SignUpNameScreen">) => {
   const dispatch = useDispatch();
 
-  const handleSubmit = () => {
-    navigation.navigate("SignUpAboutMeScreen");
-  };
-
   const formik = useFormik<FormikData>({
     initialValues: {
       name: "",
@@ -61,7 +57,7 @@ const SignUpNameScreen = ({
           formik.isSubmitting ||
           (!formik.dirty && formik.isValid)
         }
-        onPress={handleSubmit}
+        onPress={formik.handleSubmit}
       />
     </ScreenWrapper>
   );

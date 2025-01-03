@@ -44,6 +44,8 @@ const PhoneNumberInput: React.FC<MobileInputProps> = (props) => {
         <View style={styles.divider} />
         <TextInput
           style={styles.input}
+          selectionColor={COLORS.primaryLight}
+          selectionHandleColor={COLORS.primaryLight}
           {...inputProps}
           placeholderTextColor={COLORS.input_placeholder_gray}
         />
