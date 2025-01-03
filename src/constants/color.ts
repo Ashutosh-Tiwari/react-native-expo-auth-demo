@@ -10,6 +10,7 @@ const COLORS = {
   border: "#605f63",
   blue: "#3317d3",
   capsulePink: "#f4e1e1",
+  error: "#B3261E",
 };
 
 export default COLORS;
