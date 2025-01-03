@@ -1,25 +1,52 @@
 import React from "react";
-import { TextInput, StyleSheet, TextInputProps } from "react-native";
+import {
+  TextInput,
+  StyleSheet,
+  TextInputProps,
+  View,
+  StyleProp,
+  ViewStyle,
+  TextStyle,
+} from "react-native";
 import { useTheme } from "@react-navigation/native";
 import DEFAULT_THEME from "constants/theme";
 import COLORS from "constants/color";
+import InputHelperText from "./InputHelperText";
 
-const CustomInput: React.FC<TextInputProps> = (props) => {
+export interface CustomTextInput extends TextInputProps {
+  outerContainerStyle?: StyleProp<ViewStyle>;
+  label?: string;
+  textInputStyle?: StyleProp<TextStyle>;
+  helperText?: string;
+  helperTextStyle?: StyleProp<TextStyle>;
+  error?: boolean;
+}
+
+const CustomInput: React.FC<CustomTextInput> = (props) => {
   const { components } = useTheme() as typeof DEFAULT_THEME;
-
+  const { helperText, error } = props;
   return (
-    <TextInput
-      style={{
-        color: components.input.textColor,
-        borderColor: components.input.borderColor,
-        padding: components.input.padding,
-        fontSize: 16,
-        width: "100%",
-        borderBottomWidth: 1,
-      }}
-      {...props}
-      placeholderTextColor={COLORS.input_placeholder_gray}
-    />
+    <View>
+      <TextInput
+        style={{
+          color: components.input.textColor,
+          borderColor: components.input.borderColor,
+          padding: components.input.padding,
+          fontSize: 16,
+          width: "100%",
+          borderBottomWidth: 1,
+        }}
+        {...props}
+        placeholderTextColor={COLORS.input_placeholder_gray}
+      />
+      {helperText && (
+        <InputHelperText
+          helperTextStyle={props.helperTextStyle}
+          text={helperText}
+          error={!!error}
+        />
+      )}
+    </View>
   );
 };
 

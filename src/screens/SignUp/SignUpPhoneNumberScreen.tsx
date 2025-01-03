@@ -57,10 +57,6 @@ const SignUpPhoneNumberScreen = ({
         onChangeText={handleChange("phoneNumber")}
         keyboardType="number-pad"
         onBlur={handleBlur("phoneNumber")}
-        onFocus={() => {
-          setFieldError("phoneNumber", undefined);
-          setFieldTouched("phoneNumber", false);
-        }}
         maxLength={10}
         error={!!(touched.phoneNumber && errors.phoneNumber)}
         helperText={
@@ -77,7 +73,7 @@ const SignUpPhoneNumberScreen = ({
 
       <CustomButton
         title="Next"
-        disabled={!isValid || isSubmitting || (!dirty && isValid)}
+        // disabled={!isValid || isSubmitting || (!dirty && isValid)} TODO: enable it after testing
         style={{ marginHorizontal: 24, marginTop: "10%" }}
         onPress={handleSubmit}
       />
