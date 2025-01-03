@@ -7,16 +7,14 @@ import CustomInput from "components/CustomInput";
 import COLORS from "constants/color";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { ERRORS } from "constants/strings";
+import { codeSchema } from "src/utils/validationSchemas";
 
 interface FormikData {
   code: string;
 }
+
 const schema = yup.object({
-  code: yup
-    .string()
-    .required(ERRORS.REQUIRED_CODE)
-    .min(6, ERRORS.MIN_CHAR_REQUIRED_CODE),
+  code: codeSchema,
 });
 
 const SignUpOTPVerificationScreen = ({

@@ -42,7 +42,7 @@ const SignUpPhoneNumberScreen = ({
     validationSchema: schema,
     onSubmit: () => {
       dispatch(setPhoneNumber(values.phoneNumber));
-      // TODO: send OTP API
+      // TODO: send OTP API for phone
       navigation.navigate("SignUpOTPVerificationScreen");
     },
   });
