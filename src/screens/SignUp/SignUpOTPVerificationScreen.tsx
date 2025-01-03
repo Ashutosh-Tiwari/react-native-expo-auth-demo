@@ -36,8 +36,8 @@ const SignUpOTPVerificationScreen = ({
     <ScreenWrapper style={styles.container}>
       <CustomInput
         placeholder="Enter your code"
-        value={formik.values.code}
         keyboardType="numeric"
+        value={formik.values.code}
         onChangeText={formik.handleChange("code")}
         onBlur={formik.handleBlur("code")}
         maxLength={6}

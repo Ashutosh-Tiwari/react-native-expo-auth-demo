@@ -33,14 +33,12 @@ const SignUpPhoneNumberScreen = ({
     handleChange,
     handleBlur,
     handleSubmit,
-    setFieldTouched,
-    setFieldError,
   } = useFormik<FormikData>({
     initialValues: {
       phoneNumber: "",
     },
     validationSchema: schema,
-    onSubmit: () => {
+    onSubmit: async () => {
       dispatch(setPhoneNumber(values.phoneNumber));
       // TODO: send OTP API for phone
       navigation.navigate("SignUpOTPVerificationScreen");
@@ -73,7 +71,7 @@ const SignUpPhoneNumberScreen = ({
 
       <CustomButton
         title="Next"
-        // disabled={!isValid || isSubmitting || (!dirty && isValid)} TODO: enable it after testing
+        disabled={!isValid || isSubmitting || (!dirty && isValid)}
         style={{ marginHorizontal: 24, marginTop: "10%" }}
         onPress={handleSubmit}
       />

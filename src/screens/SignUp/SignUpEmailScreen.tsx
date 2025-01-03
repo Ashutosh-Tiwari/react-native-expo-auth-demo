@@ -24,18 +24,15 @@ const SignUpEmailScreen = ({
 }: SignUpNavProps<"SignUpEmailScreen">) => {
   const dispatch = useDispatch();
 
-  const handleSignIn = () => {
-    navigation.navigate("SignUpEmailVerificationScreen");
-  };
-
   const formik = useFormik<FormikData>({
     initialValues: {
       email: "",
     },
     validationSchema: schema,
-    onSubmit: () => {
+    onSubmit: async () => {
       dispatch(setEmail(formik.values.email));
       // TODO: send OTP API for email
+      navigation.navigate("SignUpEmailVerificationScreen");
     },
   });
 
@@ -64,7 +61,7 @@ const SignUpEmailScreen = ({
           formik.isSubmitting ||
           (!formik.dirty && formik.isValid)
         }
-        onPress={handleSignIn}
+        onPress={formik.handleSubmit}
       />
     </ScreenWrapper>
   );
