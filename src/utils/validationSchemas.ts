@@ -22,5 +22,21 @@ export const testValidNumber = (value?: string) => {
 export const phoneNumberSchema = yup
   .string()
   .min(10, ERRORS.INVALID_PHONE_NUMBER)
-  .required(ERRORS.REQUIRED_PHONE_NUMBER_FIELD);
+  .required(ERRORS.PHONE_NUMBER_REQUIRED);
 // .test("valid_number", ERRORS.INVALID_PHONE_NUMBER, testValidNumber) TODO: add back the test scenario for valid number checks
+
+export const emailSchema = yup
+  .string()
+  .required(ERRORS.EMAIL_REQUIRED)
+  .min(10, ERRORS.MIN_MAX_CHARS_EMAIL_REQUIRED)
+  .max(50, ERRORS.MIN_MAX_CHARS_EMAIL_REQUIRED)
+  .email(ERRORS.INVALID_EMAIL)
+  .test("valid-tld", ERRORS.INVALID_EMAIL, (value) => {
+    const validTLDRegex = /\.[a-zA-Z]{2,}$/; // Check for at least two characters after a dot (.)
+    return value ? validTLDRegex.test(value) : false;
+  });
+
+export const codeSchema = yup
+  .string()
+  .required(ERRORS.CODE_REQUIRED)
+  .min(6, ERRORS.MIN_MAX_CHAR_CODE);
