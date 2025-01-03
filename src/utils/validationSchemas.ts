@@ -22,5 +22,5 @@ export const testValidNumber = (value?: string) => {
 export const phoneNumberSchema = yup
   .string()
   .min(10, ERRORS.INVALID_PHONE_NUMBER)
-  .required(ERRORS.REQUIRED_PHONE_NUMBER_FIELD)
-  .test("valid_number", ERRORS.INVALID_PHONE_NUMBER, testValidNumber);
+  .required(ERRORS.REQUIRED_PHONE_NUMBER_FIELD);
+// .test("valid_number", ERRORS.INVALID_PHONE_NUMBER, testValidNumber) TODO: add back the test scenario for valid number checks

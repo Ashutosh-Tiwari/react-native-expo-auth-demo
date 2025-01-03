@@ -5,14 +5,51 @@ import ScreenWrapper from "components/ScreenWrapper";
 import CustomButton from "components/CustomButton";
 import CustomInput from "components/CustomInput";
 import COLORS from "constants/color";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { ERRORS } from "constants/strings";
+
+interface FormikData {
+  code: string;
+}
+const schema = yup.object({
+  code: yup
+    .string()
+    .required(ERRORS.REQUIRED_CODE)
+    .min(6, ERRORS.MIN_CHAR_REQUIRED_CODE),
+});
 
 const SignUpOTPVerificationScreen = ({
   navigation,
   route,
 }: SignUpNavProps<"SignUpOTPVerificationScreen">) => {
+  const formik = useFormik<FormikData>({
+    initialValues: {
+      code: "",
+    },
+    validationSchema: schema,
+    onSubmit: async () => {
+      // TODO: API for OTP verify
+      navigation.navigate("SignUpEmailScreen");
+    },
+  });
+
   return (
     <ScreenWrapper style={styles.container}>
-      <CustomInput placeholder="Enter your code" keyboardType="numeric" />
+      <CustomInput
+        placeholder="Enter your code"
+        value={formik.values.code}
+        keyboardType="numeric"
+        onChangeText={formik.handleChange("code")}
+        onBlur={formik.handleBlur("code")}
+        maxLength={6}
+        error={!!(formik.touched.code && formik.errors.code)}
+        helperText={
+          formik.touched.code && formik.errors.code
+            ? formik.errors.code
+            : undefined
+        }
+      />
       <Text>
         We will text you a code to verify you're really you. Message and rates
         may apply.
@@ -26,7 +63,12 @@ const SignUpOTPVerificationScreen = ({
       <CustomButton
         title="Next"
         style={styles.button}
-        onPress={() => navigation.navigate("SignUpEmailScreen")}
+        disabled={
+          !formik.isValid ||
+          formik.isSubmitting ||
+          (!formik.dirty && formik.isValid)
+        }
+        onPress={formik.handleSubmit}
       />
     </ScreenWrapper>
   );
