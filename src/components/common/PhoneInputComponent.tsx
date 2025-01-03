@@ -1,9 +1,13 @@
 import CustomButton from "components/CustomButton";
 import PhoneNumberInput from "components/PhoneNumberInput";
 import React from "react";
-import { Text, TextInputProps } from "react-native";
+import { StyleProp, Text, TextInputProps, TextStyle } from "react-native";
 
+// TODO: To be used later to replacing the common UI enter phone number screen
 interface PhoneInputComponentProps extends TextInputProps {
+  helperText?: string;
+  helperTextStyle?: StyleProp<TextStyle>;
+  error?: boolean;
   onNextPress: () => void;
   onChangeText: (text: string) => void;
 }
@@ -11,6 +15,7 @@ interface PhoneInputComponentProps extends TextInputProps {
 const PhoneInputComponent: React.FC<PhoneInputComponentProps> = ({
   onNextPress,
   onChangeText,
+  helperTextStyle,
   value,
 }) => {
   return (
@@ -19,6 +24,8 @@ const PhoneInputComponent: React.FC<PhoneInputComponentProps> = ({
         placeholder="Enter your phone number"
         code="US +1"
         value={value}
+        maxLength={10}
+        helperTextStyle={helperTextStyle}
         onChangeText={onChangeText}
         keyboardType="number-pad"
       />
@@ -30,7 +37,7 @@ const PhoneInputComponent: React.FC<PhoneInputComponentProps> = ({
 
       <CustomButton
         title="Next"
-        // disabled={!value || value.length < 10}
+        disabled={!value || value.length < 10}
         style={{ marginHorizontal: 24, marginTop: "10%" }}
         onPress={onNextPress}
       />

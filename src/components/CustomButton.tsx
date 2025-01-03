@@ -11,7 +11,7 @@ import {
 
 interface CustomButtonProps {
   title: string;
-  onPress: (event: GestureResponderEvent) => void;
+  onPress: (event: any) => void;
   style?: object;
   textStyle?: object;
   disabled?: boolean;
