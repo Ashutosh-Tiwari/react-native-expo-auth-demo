@@ -11,6 +11,7 @@ export type RootNavigatorParamList = {
     firstName: string;
     phoneNumber: string;
     email: string;
+    location: string;
     hobbies: string[];
     startSign: string;
   };

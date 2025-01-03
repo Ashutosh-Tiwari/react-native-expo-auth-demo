@@ -30,14 +30,16 @@ const CustomInput: React.FC<CustomTextInput> = (props) => {
       <TextInput
         style={{
           color: components.input.textColor,
-          borderColor: components.input.borderColor,
+          borderColor: error ? COLORS.error : components.input.borderColor,
           padding: components.input.padding,
           fontSize: 16,
           width: "100%",
           borderBottomWidth: 1,
         }}
-        {...props}
+        selectionColor={COLORS.primaryLight}
+        selectionHandleColor={COLORS.primaryLight}
         placeholderTextColor={COLORS.input_placeholder_gray}
+        {...props}
       />
       {helperText && (
         <InputHelperText

@@ -2,21 +2,20 @@ import React from "react";
 import { Text, StyleSheet } from "react-native";
 import { RootNavProps } from "../navigation/Routing/paramList";
 import ScreenWrapper from "components/ScreenWrapper";
-import { useGeolocation } from "src/hooks/useGeoLocation";
 
 const WelcomeScreen = ({
   navigation,
   route,
 }: RootNavProps<"WelcomeScreen">) => {
-  const { firstName, phoneNumber, email, hobbies, startSign } = route.params;
-  // TODO: fetch geo location
+  const { firstName, phoneNumber, email, location, hobbies, startSign } =
+    route.params;
 
   return (
     <ScreenWrapper style={styles.container}>
       <Text>{`Good morning ${firstName ?? "first name"}\n`}</Text>
       <Text>{`Your phone number is: ${phoneNumber ?? "phone"}`}</Text>
       <Text>{`Your email is: ${email ?? "email"}`}</Text>
-      <Text>{`You are located in India`}</Text>
+      <Text>{`You are located in ${location ?? "location"}`}</Text>
       <Text>{`Your hobbies are  ${hobbies.toString() ?? "hobbies"}`}</Text>
       <Text>{`Your start sign is ${startSign ?? "star sign"}`}</Text>
     </ScreenWrapper>

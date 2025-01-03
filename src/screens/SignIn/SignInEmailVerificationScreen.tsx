@@ -9,8 +9,6 @@ const SignInEmailVerificationScreen = ({
   navigation,
   route,
 }: SignInNavProps<"SignInEmailVerificationScreen">) => {
-  const [verificationCode, setVerificationCode] = React.useState("");
-
   const handleVerify = () => {
     navigation.getParent()?.reset({
       index: 0,
@@ -21,6 +19,7 @@ const SignInEmailVerificationScreen = ({
             firstName: "Paresh Mayani",
             phoneNumber: "0123456789",
             email: "paresh.mayani@solguruz.com",
+            location: "India",
             hobbies: ["Sports", "Cooking"],
             startSign: "Aries",
           },
