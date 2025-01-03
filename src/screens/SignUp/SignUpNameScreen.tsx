@@ -4,29 +4,65 @@ import ScreenWrapper from "components/ScreenWrapper";
 import { SignUpNavProps } from "navigation/SignUp/paramList";
 import React from "react";
 import { StyleSheet } from "react-native";
+import { useDispatch } from "react-redux";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { nameSchema } from "src/utils/validationSchemas";
+import { setName } from "src/redux/user/userSlice";
 
+interface FormikData {
+  name: string;
+}
+
+const schema = yup.object({
+  name: nameSchema,
+});
 const SignUpNameScreen = ({
   navigation,
   route,
 }: SignUpNavProps<"SignUpNameScreen">) => {
-  const [name, setName] = React.useState("");
-
-  const handleNameChange = (text: string) => {
-    setName(text);
-  };
+  const dispatch = useDispatch();
 
   const handleSubmit = () => {
     navigation.navigate("SignUpAboutMeScreen");
   };
 
+  const formik = useFormik<FormikData>({
+    initialValues: {
+      name: "",
+    },
+    validationSchema: schema,
+    onSubmit: async () => {
+      dispatch(setName(formik.values.name));
+      // TODO: API for OTP verify
+      navigation.navigate("SignUpAboutMeScreen");
+    },
+  });
+
   return (
     <ScreenWrapper>
       <CustomInput
-        value={name}
-        onChangeText={handleNameChange}
         placeholder="Enter first name"
+        value={formik.values.name}
+        onChangeText={formik.handleChange("name")}
+        onBlur={formik.handleBlur("name")}
+        error={!!(formik.touched.name && formik.errors.name)}
+        helperText={
+          formik.touched.name && formik.errors.name
+            ? formik.errors.name
+            : undefined
+        }
       />
-      <CustomButton title="Next" style={styles.button} onPress={handleSubmit} />
+      <CustomButton
+        title="Next"
+        style={styles.button}
+        disabled={
+          !formik.isValid ||
+          formik.isSubmitting ||
+          (!formik.dirty && formik.isValid)
+        }
+        onPress={handleSubmit}
+      />
     </ScreenWrapper>
   );
 };

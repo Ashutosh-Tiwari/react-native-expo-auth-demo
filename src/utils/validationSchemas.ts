@@ -41,3 +41,5 @@ export const codeSchema = yup
   .string()
   .required(ERRORS.CODE_REQUIRED)
   .min(6, ERRORS.MIN_MAX_CHAR_CODE);
+
+export const nameSchema = yup.string().required(ERRORS.NAME_REQUIRED);

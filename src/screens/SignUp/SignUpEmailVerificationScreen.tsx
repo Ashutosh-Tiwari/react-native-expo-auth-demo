@@ -50,6 +50,11 @@ const SignUpEmailVerificationScreen = ({
       <CustomButton
         title="Next"
         style={styles.button}
+        disabled={
+          !formik.isValid ||
+          formik.isSubmitting ||
+          (!formik.dirty && formik.isValid)
+        }
         onPress={formik.handleSubmit}
       />
     </ScreenWrapper>

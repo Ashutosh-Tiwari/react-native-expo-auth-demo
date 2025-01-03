@@ -7,4 +7,5 @@ export const ERRORS = {
   EMAIL_REQUIRED: "Email is required.",
   MIN_MAX_CHARS_EMAIL_REQUIRED: "Email needs to be 10 to 50 characters.",
   INVALID_EMAIL: "Invalid email.",
+  NAME_REQUIRED: "Name is required.",
 };
