@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "src/redux/store";
 import { useSelector } from "react-redux";
 import { showErrorToast, showSuccessToast } from "src/utils/toast";
+import { REDUX_CONST } from "constants/strings";
 
 interface FormikData {
   code: string;
@@ -40,11 +41,13 @@ const SignUpEmailVerificationScreen = ({
       if (verifyEmailOtpAction.fulfilled.match(resultAction)) {
         showSuccessToast(
           "success",
-          resultAction.payload.message ?? "Email verified successfully."
+          resultAction.payload.message ?? REDUX_CONST.EMAIL_VERIFIED
         );
         navigation.navigate("SignUpNameScreen");
-      } else {
-        showErrorToast("Error", "Unable to verify email. Try again.");
+      } else if (verifyEmailOtpAction.rejected.match(resultAction)) {
+        const errorMessage =
+          resultAction.payload?.message || REDUX_CONST.OTP_VERIFY_FAILED;
+        showErrorToast("Error", errorMessage);
       }
     },
   });

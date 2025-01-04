@@ -12,6 +12,7 @@ import { sendEmailOtpAction } from "src/redux/user/userActions";
 import { AppDispatch } from "src/redux/store";
 import { showErrorToast, showSuccessToast } from "src/utils/toast";
 import { setEmail } from "src/redux/user/userSlice";
+import { REDUX_CONST } from "constants/strings";
 
 interface FormikData {
   email: string;
@@ -37,12 +38,13 @@ const SignUpEmailScreen = ({
       if (sendEmailOtpAction.fulfilled.match(resultAction)) {
         showSuccessToast(
           "success",
-          resultAction.payload.message ??
-            "OTP sent successfully to email - 123456"
+          resultAction.payload.message ?? REDUX_CONST.OTP_SENT_EMAIL
         );
         navigation.navigate("SignUpEmailVerificationScreen");
-      } else {
-        showErrorToast("Error", "Unable to send OTP to email. Try again.");
+      } else if (sendEmailOtpAction.rejected.match(resultAction)) {
+        const errorMessage =
+          resultAction.payload?.message || REDUX_CONST.SEND_OTP_FAILED;
+        showErrorToast("Error", errorMessage);
       }
     },
   });

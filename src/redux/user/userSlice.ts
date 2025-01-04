@@ -66,26 +66,25 @@ const userSlice = createSlice({
       return initialState;
     },
   },
-
   extraReducers: (builder) => {
+    const handlePending = (state: UserState) => {
+      state.loading = true;
+      state.error = null;
+    };
+
+    const handleRejected = (state: UserState, action: any) => {
+      const errorMessage =
+        action.payload?.message || "An unexpected error occurred.";
+      state.error = errorMessage;
+      state.loading = false;
+    };
     builder
-      .addCase(sendOtpAction.pending, (state) => {
-        state.loading = true;
-      })
+      .addCase(sendOtpAction.pending, handlePending)
       .addCase(sendOtpAction.fulfilled, (state) => {
         state.loading = false;
       })
-      .addCase(sendOtpAction.rejected, (state, action) => {
-        const { message } = action.payload as {
-          message: string;
-          status: number;
-        };
-        state.error = message;
-        state.loading = false;
-      })
-      .addCase(verifyOtpAction.pending, (state) => {
-        state.loading = true;
-      })
+      .addCase(sendOtpAction.rejected, handleRejected)
+      .addCase(verifyOtpAction.pending, handlePending)
       .addCase(verifyOtpAction.fulfilled, (state, action) => {
         const { token, userDetails } = action.payload;
         state.token = token;
@@ -94,61 +93,27 @@ const userSlice = createSlice({
         state.name = userDetails.name ?? "";
         state.loading = false;
       })
-      .addCase(verifyOtpAction.rejected, (state, action) => {
-        const { message } = action.payload as {
-          message: string;
-          status: number;
-        };
-        state.loading = false;
-        state.error = message;
-      })
-      .addCase(sendEmailOtpAction.pending, (state) => {
-        state.loading = true;
-      })
+      .addCase(verifyOtpAction.rejected, handleRejected)
+      .addCase(sendEmailOtpAction.pending, handlePending)
       .addCase(sendEmailOtpAction.fulfilled, (state) => {
         state.loading = false;
       })
-      .addCase(sendEmailOtpAction.rejected, (state, action) => {
-        const { message } = action.payload as {
-          message: string;
-          status: number;
-        };
-        state.error = message;
-        state.loading = false;
-      })
-      .addCase(verifyEmailOtpAction.pending, (state) => {
-        state.loading = true;
-      })
+      .addCase(sendEmailOtpAction.rejected, handleRejected)
+      .addCase(verifyEmailOtpAction.pending, handlePending)
       .addCase(verifyEmailOtpAction.fulfilled, (state, action) => {
         const { userDetails } = action.payload;
         state.mobile = userDetails.mobile;
         state.email = userDetails.email;
         state.loading = false;
       })
-      .addCase(verifyEmailOtpAction.rejected, (state, action) => {
-        const { message } = action.payload as {
-          message: string;
-          status: number;
-        };
-        state.error = message;
-        state.loading = false;
-      })
-      .addCase(addNameAction.pending, (state) => {
-        state.loading = true;
-      })
+      .addCase(verifyEmailOtpAction.rejected, handleRejected)
+      .addCase(addNameAction.pending, handlePending)
       .addCase(addNameAction.fulfilled, (state, action) => {
         const { userDetails } = action.payload;
         state.name = userDetails.name;
         state.loading = false;
       })
-      .addCase(addNameAction.rejected, (state, action) => {
-        const { message } = action.payload as {
-          message: string;
-          status: number;
-        };
-        state.error = message;
-        state.loading = false;
-      });
+      .addCase(addNameAction.rejected, handleRejected);
   },
 });
 

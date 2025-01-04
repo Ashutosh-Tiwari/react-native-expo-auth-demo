@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "src/redux/store";
 import { useSelector } from "react-redux";
 import { showErrorToast, showSuccessToast } from "src/utils/toast";
+import { REDUX_CONST } from "constants/strings";
 
 interface FormikData {
   code: string;
@@ -40,12 +41,13 @@ const SignUpOTPVerificationScreen = ({
       if (verifyOtpAction.fulfilled.match(resultAction)) {
         showSuccessToast(
           "success",
-          resultAction.payload.message ??
-            "Your OTP verified and updated successfully."
+          resultAction.payload.message ?? REDUX_CONST.OTP_VERIFIED
         );
         navigation.navigate("SignUpEmailScreen");
-      } else {
-        showErrorToast("Error", "Invalid OTP.");
+      } else if (verifyOtpAction.rejected.match(resultAction)) {
+        const errorMessage =
+          resultAction.payload?.message || REDUX_CONST.OTP_VERIFY_FAILED;
+        showErrorToast("Error", errorMessage);
       }
     },
   });
