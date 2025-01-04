@@ -11,6 +11,7 @@ import { AppDispatch, RootState } from "src/redux/store";
 import { useDispatch } from "react-redux";
 import { setInterests, setStarSign } from "src/redux/user/userSlice";
 import { UserAboutModel } from "navigation/Routing/paramList";
+import { showErrorToast } from "src/utils/toast";
 
 type ABOUT_ME = "interests" | "signs";
 
@@ -18,7 +19,7 @@ const SignUpAboutMeScreen = ({
   navigation,
   route,
 }: SignUpNavProps<"SignUpAboutMeScreen">) => {
-  const { fetchLocation, error } = useGeolocation();
+  const { fetchLocation, loading, error } = useGeolocation();
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.user);
 
@@ -99,7 +100,6 @@ const SignUpAboutMeScreen = ({
   const handleNext = async () => {
     try {
       const location = await fetchLocation();
-
       navigation.getParent()?.reset({
         index: 0,
         routes: [
@@ -110,20 +110,15 @@ const SignUpAboutMeScreen = ({
               phoneNumber: user.mobile,
               email: user.email,
               location,
-              hobbies: selectedInterests.map(
-                (interest) =>
-                  arrayOfUserInterests.find((item) => item.id === interest.id)
-                    ?.name
-              ),
-              startSign: arrayOfUserSigns.find(
-                (item) => item.id === selectedSign.id
-              )?.name,
+              hobbies: selectedInterests.map((hobby) => hobby.name).join(", "),
+              startSign: selectedSign.name,
             },
           },
         ],
       });
     } catch (error: any) {
       console.error(error.message);
+      showErrorToast("Error", error.message);
     }
   };
 
@@ -136,6 +131,7 @@ const SignUpAboutMeScreen = ({
       <CustomButton
         style={styles.button}
         title="Next"
+        loading={loading}
         onPress={handleNext}
         disabled={selectedInterests.length === 0 || !selectedSign}
       />

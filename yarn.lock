@@ -4596,6 +4596,7 @@ __metadata:
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-prettier: "npm:^5.2.1"
     expo: "npm:~52.0.23"
+    expo-constants: "npm:~17.0.3"
     expo-location: "npm:^18.0.4"
     expo-status-bar: "npm:~2.0.0"
     formik: "npm:^2.4.6"
