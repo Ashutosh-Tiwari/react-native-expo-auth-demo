@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, StyleSheet, FlatList, Pressable } from "react-native";
 import { SignUpNavProps } from "navigation/SignUp/paramList";
 import CustomButton from "components/CustomButton";
@@ -19,7 +19,7 @@ const SignUpAboutMeScreen = ({
   navigation,
   route,
 }: SignUpNavProps<"SignUpAboutMeScreen">) => {
-  const { fetchLocation, loading, error } = useGeolocation();
+  const { fetchLocation, loading } = useGeolocation();
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.user);
 
