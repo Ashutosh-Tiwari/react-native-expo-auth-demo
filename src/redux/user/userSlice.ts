@@ -66,7 +66,7 @@ const userSlice = createSlice({
       return initialState;
     },
   },
-  // TODO: check failure payloads
+
   extraReducers: (builder) => {
     builder
       .addCase(sendOtpAction.pending, (state) => {
