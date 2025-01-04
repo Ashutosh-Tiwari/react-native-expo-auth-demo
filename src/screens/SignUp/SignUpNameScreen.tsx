@@ -30,8 +30,8 @@ const SignUpNameScreen = ({
       name: "",
     },
     validationSchema: schema,
-    onSubmit: async () => {
-      const resultAction = await dispatch(addNameAction(formik.values.name));
+    onSubmit: async (values) => {
+      const resultAction = await dispatch(addNameAction(values.name));
       if (addNameAction.fulfilled.match(resultAction)) {
         showSuccessToast(
           "success",

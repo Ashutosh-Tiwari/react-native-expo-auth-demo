@@ -26,22 +26,12 @@ const SignUpPhoneNumberScreen = ({
 }: SignUpNavProps<"SignUpPhoneNumberScreen">) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const {
-    values,
-    touched,
-    errors,
-    isValid,
-    isSubmitting,
-    dirty,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-  } = useFormik<FormikData>({
+  const formik = useFormik<FormikData>({
     initialValues: {
       phoneNumber: "",
     },
     validationSchema: schema,
-    onSubmit: async () => {
+    onSubmit: async (values) => {
       dispatch(setPhoneNumber(values.phoneNumber));
       const resultAction = await dispatch(sendOtpAction(values.phoneNumber));
       if (sendOtpAction.fulfilled.match(resultAction)) {
@@ -62,15 +52,15 @@ const SignUpPhoneNumberScreen = ({
       <PhoneNumberInput
         placeholder="Enter your phone number"
         code="US +1"
-        value={values.phoneNumber}
-        onChangeText={handleChange("phoneNumber")}
+        value={formik.values.phoneNumber}
+        onChangeText={formik.handleChange("phoneNumber")}
         keyboardType="number-pad"
-        onBlur={handleBlur("phoneNumber")}
+        onBlur={formik.handleBlur("phoneNumber")}
         maxLength={10}
-        error={!!(touched.phoneNumber && errors.phoneNumber)}
+        error={!!(formik.touched.phoneNumber && formik.errors.phoneNumber)}
         helperText={
-          touched.phoneNumber && errors.phoneNumber
-            ? errors.phoneNumber
+          formik.touched.phoneNumber && formik.errors.phoneNumber
+            ? formik.errors.phoneNumber
             : undefined
         }
       />
@@ -82,10 +72,14 @@ const SignUpPhoneNumberScreen = ({
 
       <CustomButton
         title="Next"
-        disabled={!isValid || isSubmitting || (!dirty && isValid)}
-        loading={isSubmitting}
+        disabled={
+          !formik.isValid ||
+          formik.isSubmitting ||
+          (!formik.dirty && formik.isValid)
+        }
+        loading={formik.isSubmitting}
         style={{ marginHorizontal: 24, marginTop: "10%" }}
-        onPress={handleSubmit}
+        onPress={formik.handleSubmit}
       />
     </ScreenWrapper>
   );
