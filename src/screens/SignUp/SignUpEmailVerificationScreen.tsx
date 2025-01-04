@@ -7,6 +7,11 @@ import { StyleSheet } from "react-native";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { codeSchema } from "src/utils/validationSchemas";
+import { verifyEmailOtpAction } from "src/redux/user/userActions";
+import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "src/redux/store";
+import { useSelector } from "react-redux";
+import { showErrorToast, showSuccessToast } from "src/utils/toast";
 
 interface FormikData {
   code: string;
@@ -20,13 +25,27 @@ const SignUpEmailVerificationScreen = ({
   navigation,
   route,
 }: SignUpNavProps<"SignUpEmailVerificationScreen">) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const email = useSelector((state: RootState) => state.user.email);
+
   const formik = useFormik<FormikData>({
     initialValues: {
       code: "",
     },
     validationSchema: schema,
     onSubmit: async () => {
-      // TODO: API for OTP verify
+      const resultAction = await dispatch(
+        verifyEmailOtpAction({ email, otp: formik.values.code })
+      );
+      if (verifyEmailOtpAction.fulfilled.match(resultAction)) {
+        showSuccessToast(
+          "success",
+          resultAction.payload.message ?? "Email verified successfully."
+        );
+        navigation.navigate("SignUpEmailVerificationScreen");
+      } else {
+        showErrorToast("Error", "Unable to verify email. Try again.");
+      }
       navigation.navigate("SignUpNameScreen");
     },
   });
@@ -50,6 +69,7 @@ const SignUpEmailVerificationScreen = ({
       <CustomButton
         title="Next"
         style={styles.button}
+        loading={formik.isSubmitting}
         disabled={
           !formik.isValid ||
           formik.isSubmitting ||

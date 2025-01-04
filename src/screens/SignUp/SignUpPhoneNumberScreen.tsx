@@ -10,7 +10,7 @@ import CustomButton from "components/CustomButton";
 import { useDispatch } from "react-redux";
 import { sendOtpAction } from "src/redux/user/userActions";
 import { AppDispatch } from "src/redux/store";
-import { showErrorToast } from "src/utils/toast";
+import { showErrorToast, showSuccessToast } from "src/utils/toast";
 import { setPhoneNumber } from "src/redux/user/userSlice";
 
 interface FormikData {
@@ -45,7 +45,7 @@ const SignUpPhoneNumberScreen = ({
       dispatch(setPhoneNumber(values.phoneNumber));
       const resultAction = await dispatch(sendOtpAction(values.phoneNumber));
       if (sendOtpAction.fulfilled.match(resultAction)) {
-        showErrorToast(
+        showSuccessToast(
           "success",
           resultAction.payload.message ?? "OTP sent successfully - 123456"
         );
