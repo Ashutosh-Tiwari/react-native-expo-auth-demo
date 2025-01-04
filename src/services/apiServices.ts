@@ -13,7 +13,7 @@ export const verifyOtp = async (data: { mobile: string; otp: string }) => {
 export const sendEmailOtp = async (data: { email: string }, token: string) => {
   const response = await axiosInstance.post("/email/send", data, {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: token,
     },
   });
   return response.data;
@@ -25,7 +25,7 @@ export const verifyEmailOtp = async (
 ) => {
   const response = await axiosInstance.post("/email/verify", data, {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: token,
     },
   });
   return response.data;
@@ -34,7 +34,7 @@ export const verifyEmailOtp = async (
 export const addName = async (data: { name: string }, token: string) => {
   const response = await axiosInstance.post("/user/add", data, {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: token,
     },
   });
   return response.data;

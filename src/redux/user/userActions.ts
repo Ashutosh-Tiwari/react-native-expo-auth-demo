@@ -37,7 +37,6 @@ export const sendEmailOtpAction = createAsyncThunk(
   async (email: string, { getState, rejectWithValue }) => {
     const state = getState() as RootState;
     const token = state.user.token;
-    console.log("token: ", token);
 
     try {
       const response = await sendEmailOtp({ email }, token!!);

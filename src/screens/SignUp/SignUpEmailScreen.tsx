@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { sendEmailOtpAction } from "src/redux/user/userActions";
 import { AppDispatch } from "src/redux/store";
 import { showErrorToast, showSuccessToast } from "src/utils/toast";
+import { setEmail } from "src/redux/user/userSlice";
 
 interface FormikData {
   email: string;
@@ -31,6 +32,7 @@ const SignUpEmailScreen = ({
     },
     validationSchema: schema,
     onSubmit: async () => {
+      dispatch(setEmail(formik.values.email));
       const resultAction = await dispatch(
         sendEmailOtpAction(formik.values.email)
       );

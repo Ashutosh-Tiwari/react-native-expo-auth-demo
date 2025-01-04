@@ -41,7 +41,7 @@ const SignUpOTPVerificationScreen = ({
         showSuccessToast(
           "success",
           resultAction.payload.message ??
-            "Your email verified and updated successfully."
+            "Your OTP verified and updated successfully."
         );
         navigation.navigate("SignUpEmailScreen");
       } else {
