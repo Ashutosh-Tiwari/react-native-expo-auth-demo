@@ -23,8 +23,8 @@ export type RootNavigatorParamList = {
     phoneNumber: string;
     email: string;
     location: LocationData | null;
-    hobbies: UserAboutModel[];
-    startSign: UserAboutModel;
+    hobbies: string;
+    startSign: string;
   };
 };
 
