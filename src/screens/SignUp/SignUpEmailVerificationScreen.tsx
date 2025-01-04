@@ -42,11 +42,10 @@ const SignUpEmailVerificationScreen = ({
           "success",
           resultAction.payload.message ?? "Email verified successfully."
         );
-        navigation.navigate("SignUpEmailVerificationScreen");
+        navigation.navigate("SignUpNameScreen");
       } else {
         showErrorToast("Error", "Unable to verify email. Try again.");
       }
-      navigation.navigate("SignUpNameScreen");
     },
   });
 

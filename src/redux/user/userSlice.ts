@@ -92,7 +92,6 @@ const userSlice = createSlice({
         state.loading = true;
       })
       .addCase(verifyOtpAction.fulfilled, (state, action) => {
-        console.log(action.payload);
         const { token, userDetails } = action.payload;
         state.token = token;
         state.mobile = userDetails.mobile;

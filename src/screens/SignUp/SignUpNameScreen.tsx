@@ -9,6 +9,9 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { nameSchema } from "src/utils/validationSchemas";
 import { setName } from "src/redux/user/userSlice";
+import { addNameAction } from "src/redux/user/userActions";
+import { AppDispatch } from "src/redux/store";
+import { showErrorToast, showSuccessToast } from "src/utils/toast";
 
 interface FormikData {
   name: string;
@@ -19,9 +22,8 @@ const schema = yup.object({
 });
 const SignUpNameScreen = ({
   navigation,
-  route,
 }: SignUpNavProps<"SignUpNameScreen">) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const formik = useFormik<FormikData>({
     initialValues: {
@@ -29,9 +31,16 @@ const SignUpNameScreen = ({
     },
     validationSchema: schema,
     onSubmit: async () => {
-      dispatch(setName(formik.values.name));
-      // TODO: API for OTP verify
-      navigation.navigate("SignUpAboutMeScreen");
+      const resultAction = await dispatch(addNameAction(formik.values.name));
+      if (addNameAction.fulfilled.match(resultAction)) {
+        showSuccessToast(
+          "success",
+          resultAction.payload.message ?? "Name added successfully!"
+        );
+        navigation.navigate("SignUpAboutMeScreen");
+      } else {
+        showErrorToast("Error", "Unable to add name. Try again.");
+      }
     },
   });
 
@@ -52,6 +61,7 @@ const SignUpNameScreen = ({
       <CustomButton
         title="Next"
         style={styles.button}
+        loading={formik.isSubmitting}
         disabled={
           !formik.isValid ||
           formik.isSubmitting ||
