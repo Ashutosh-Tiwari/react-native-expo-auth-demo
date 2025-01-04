@@ -8,6 +8,11 @@ import COLORS from "constants/color";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { codeSchema } from "src/utils/validationSchemas";
+import { verifyOtpAction } from "src/redux/user/userActions";
+import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "src/redux/store";
+import { useSelector } from "react-redux";
+import { showErrorToast } from "src/utils/toast";
 
 interface FormikData {
   code: string;
@@ -19,16 +24,29 @@ const schema = yup.object({
 
 const SignUpOTPVerificationScreen = ({
   navigation,
-  route,
 }: SignUpNavProps<"SignUpOTPVerificationScreen">) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const mobile = useSelector((state: RootState) => state.user.mobile);
+
   const formik = useFormik<FormikData>({
     initialValues: {
       code: "",
     },
     validationSchema: schema,
     onSubmit: async () => {
-      // TODO: API for OTP verify
-      navigation.navigate("SignUpEmailScreen");
+      const resultAction = await dispatch(
+        verifyOtpAction({ mobile, otp: formik.values.code })
+      );
+      if (verifyOtpAction.fulfilled.match(resultAction)) {
+        showErrorToast(
+          "success",
+          resultAction.payload.message ??
+            "Your email verified and updated successfully."
+        );
+        navigation.navigate("SignUpEmailScreen");
+      } else {
+        showErrorToast("Error", "Invalid OTP.");
+      }
     },
   });
 
@@ -61,6 +79,7 @@ const SignUpOTPVerificationScreen = ({
       <CustomButton
         title="Next"
         style={styles.button}
+        loading={formik.isSubmitting}
         disabled={
           !formik.isValid ||
           formik.isSubmitting ||
