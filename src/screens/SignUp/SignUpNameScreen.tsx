@@ -12,6 +12,7 @@ import { setName } from "src/redux/user/userSlice";
 import { addNameAction } from "src/redux/user/userActions";
 import { AppDispatch } from "src/redux/store";
 import { showErrorToast, showSuccessToast } from "src/utils/toast";
+import { REDUX_CONST } from "constants/strings";
 
 interface FormikData {
   name: string;
@@ -35,11 +36,13 @@ const SignUpNameScreen = ({
       if (addNameAction.fulfilled.match(resultAction)) {
         showSuccessToast(
           "success",
-          resultAction.payload.message ?? "Name added successfully!"
+          resultAction.payload.message ?? REDUX_CONST.NAME_ADDED
         );
         navigation.navigate("SignUpAboutMeScreen");
-      } else {
-        showErrorToast("Error", "Unable to add name. Try again.");
+      } else if (addNameAction.rejected.match(resultAction)) {
+        const errorMessage =
+          resultAction.payload?.message || REDUX_CONST.NAME_ADD_FAILED;
+        showErrorToast("Error", errorMessage);
       }
     },
   });

@@ -12,6 +12,7 @@ import { sendOtpAction } from "src/redux/user/userActions";
 import { AppDispatch } from "src/redux/store";
 import { showErrorToast, showSuccessToast } from "src/utils/toast";
 import { setPhoneNumber } from "src/redux/user/userSlice";
+import { REDUX_CONST } from "constants/strings";
 
 interface FormikData {
   phoneNumber: string;
@@ -37,11 +38,13 @@ const SignUpPhoneNumberScreen = ({
       if (sendOtpAction.fulfilled.match(resultAction)) {
         showSuccessToast(
           "success",
-          resultAction.payload.message ?? "OTP sent successfully - 123456"
+          resultAction.payload.message ?? REDUX_CONST.OTP_SENT_SMS
         );
         navigation.navigate("SignUpOTPVerificationScreen");
-      } else {
-        showErrorToast("Error", "Invalid mobile. Try another number.");
+      } else if (sendOtpAction.rejected.match(resultAction)) {
+        const errorMessage =
+          resultAction.payload?.message || REDUX_CONST.SEND_OTP_FAILED;
+        showErrorToast("Error", errorMessage);
       }
     },
   });

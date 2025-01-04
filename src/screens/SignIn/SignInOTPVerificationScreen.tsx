@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { showErrorToast, showSuccessToast } from "src/utils/toast";
 import { useFormik } from "formik";
 import { useGeolocation } from "src/hooks/useGeoLocation";
+import { REDUX_CONST } from "constants/strings";
 interface FormikData {
   code: string;
 }
@@ -40,10 +41,7 @@ const SignInOTPVerificationScreen = ({
 
       if (verifyOtpAction.fulfilled.match(resultAction)) {
         if (!resultAction.payload?.userDetails?.email) {
-          showErrorToast(
-            "Error",
-            "User not registered, continue with registration."
-          );
+          showErrorToast("Error", REDUX_CONST.USER_NOT_REGISTERED);
           navigation.navigate("SignUpNavigator", {
             screen: "SignUpEmailScreen",
           });
@@ -72,8 +70,10 @@ const SignInOTPVerificationScreen = ({
             ],
           });
         }
-      } else {
-        showErrorToast("Error", "Invalid OTP.");
+      } else if (verifyOtpAction.rejected.match(resultAction)) {
+        const errorMessage =
+          resultAction.payload?.message || REDUX_CONST.OTP_VERIFY_FAILED;
+        showErrorToast("Error", errorMessage);
       }
     },
   });
