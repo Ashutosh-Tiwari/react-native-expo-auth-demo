@@ -8,7 +8,9 @@ import { StyleSheet } from "react-native";
 import * as yup from "yup";
 import { emailSchema } from "src/utils/validationSchemas";
 import { useDispatch } from "react-redux";
-import { setEmail } from "src/redux/user/userSlice";
+import { sendEmailOtpAction } from "src/redux/user/userActions";
+import { AppDispatch } from "src/redux/store";
+import { showErrorToast, showSuccessToast } from "src/utils/toast";
 
 interface FormikData {
   email: string;
@@ -20,9 +22,8 @@ const schema = yup.object({
 
 const SignUpEmailScreen = ({
   navigation,
-  route,
 }: SignUpNavProps<"SignUpEmailScreen">) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const formik = useFormik<FormikData>({
     initialValues: {
@@ -30,9 +31,19 @@ const SignUpEmailScreen = ({
     },
     validationSchema: schema,
     onSubmit: async () => {
-      dispatch(setEmail(formik.values.email));
-      // TODO: send OTP API for email
-      navigation.navigate("SignUpEmailVerificationScreen");
+      const resultAction = await dispatch(
+        sendEmailOtpAction(formik.values.email)
+      );
+      if (sendEmailOtpAction.fulfilled.match(resultAction)) {
+        showSuccessToast(
+          "success",
+          resultAction.payload.message ??
+            "OTP sent successfully to email - 123456"
+        );
+        navigation.navigate("SignUpEmailVerificationScreen");
+      } else {
+        showErrorToast("Error", "Unable to send OTP to email. Try again.");
+      }
     },
   });
 
@@ -56,6 +67,7 @@ const SignUpEmailScreen = ({
       <CustomButton
         title="Next"
         style={styles.button}
+        loading={formik.isSubmitting}
         disabled={
           !formik.isValid ||
           formik.isSubmitting ||

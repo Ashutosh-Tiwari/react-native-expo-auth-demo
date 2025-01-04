@@ -142,8 +142,6 @@ const userSlice = createSlice({
       })
       .addCase(addNameAction.fulfilled, (state, action) => {
         const { userDetails } = action.payload;
-        state.mobile = userDetails.mobile;
-        state.email = userDetails.email;
         state.name = userDetails.name;
         state.loading = false;
       })

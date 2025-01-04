@@ -12,7 +12,7 @@ import { verifyOtpAction } from "src/redux/user/userActions";
 import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "src/redux/store";
 import { useSelector } from "react-redux";
-import { showErrorToast } from "src/utils/toast";
+import { showErrorToast, showSuccessToast } from "src/utils/toast";
 
 interface FormikData {
   code: string;
@@ -38,7 +38,7 @@ const SignUpOTPVerificationScreen = ({
         verifyOtpAction({ mobile, otp: formik.values.code })
       );
       if (verifyOtpAction.fulfilled.match(resultAction)) {
-        showErrorToast(
+        showSuccessToast(
           "success",
           resultAction.payload.message ??
             "Your email verified and updated successfully."
