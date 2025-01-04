@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, FlatList, Pressable } from "react-native";
 import { SignUpNavProps } from "navigation/SignUp/paramList";
 import CustomButton from "components/CustomButton";
-import {
-  UserAboutModel,
-  arrayOfUserInterests,
-  arrayOfUserSigns,
-} from "constants/data";
+import { arrayOfUserInterests, arrayOfUserSigns } from "constants/data";
 import COLORS from "constants/color";
 import ScreenWrapper from "components/ScreenWrapper";
+import { useGeolocation } from "src/hooks/useGeoLocation";
+import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "src/redux/store";
+import { useDispatch } from "react-redux";
+import { setInterests, setStarSign } from "src/redux/user/userSlice";
+import { UserAboutModel } from "navigation/Routing/paramList";
 
 type ABOUT_ME = "interests" | "signs";
 
@@ -16,8 +18,14 @@ const SignUpAboutMeScreen = ({
   navigation,
   route,
 }: SignUpNavProps<"SignUpAboutMeScreen">) => {
-  const [selectedInterests, setSelectedInterests] = useState<number[]>([]);
-  const [selectedSign, setSelectedSign] = useState<number | null>(null);
+  const { fetchLocation, error } = useGeolocation();
+  const dispatch = useDispatch<AppDispatch>();
+  const user = useSelector((state: RootState) => state.user);
+
+  const selectedInterests = useSelector(
+    (state: RootState) => state.user.interests
+  );
+  const selectedSign = useSelector((state: RootState) => state.user.starSign);
 
   const renderSectionUIs = (sectionTitle: string) => {
     return (
@@ -29,20 +37,32 @@ const SignUpAboutMeScreen = ({
 
   const handleItemPress = (type: ABOUT_ME, id: number) => {
     if (type === "interests") {
-      setSelectedInterests((prev) =>
-        prev.includes(id)
-          ? prev.filter((interestId) => interestId !== id)
-          : [...prev, id]
+      const interests = arrayOfUserInterests.find(
+        (interest) => interest.id === id
       );
+      if (interests) {
+        const updatedInterests = selectedInterests.some(
+          (interest) => interest.id === id
+        )
+          ? selectedInterests.filter((interest) => interest.id !== id)
+          : [...selectedInterests, interests];
+
+        dispatch(setInterests(updatedInterests));
+      }
     } else if (type === "signs") {
-      setSelectedSign(id);
+      const selectedSignData = arrayOfUserSigns.find((sign) => sign.id === id);
+
+      if (selectedSignData) {
+        dispatch(setStarSign(selectedSignData));
+      }
     }
   };
 
   const renderListItemUIs = (item: UserAboutModel, type: ABOUT_ME) => {
     const isSelected =
-      (type === "interests" && selectedInterests.includes(item.id)) ||
-      (type === "signs" && selectedSign === item.id);
+      (type === "interests" &&
+        selectedInterests.some((interest) => interest.id === item.id)) ||
+      (type === "signs" && selectedSign.id === item.id);
 
     return (
       <Pressable
@@ -76,25 +96,35 @@ const SignUpAboutMeScreen = ({
     );
   };
 
-  const handleNext = () => {
-    navigation.getParent()?.reset({
-      index: 0,
-      routes: [
-        {
-          name: "WelcomeScreen",
-          params: {
-            firstName: "Paresh Mayani",
-            phoneNumber: "0123456789",
-            email: "paresh.mayani@solguruz.com",
-            hobbies: selectedInterests.map(
-              (id) => arrayOfUserInterests.find((item) => item.id === id)?.name
-            ),
-            startSign: arrayOfUserSigns.find((item) => item.id === selectedSign)
-              ?.name,
+  const handleNext = async () => {
+    try {
+      const location = await fetchLocation();
+
+      navigation.getParent()?.reset({
+        index: 0,
+        routes: [
+          {
+            name: "WelcomeScreen",
+            params: {
+              firstName: user.name,
+              phoneNumber: user.mobile,
+              email: user.email,
+              location,
+              hobbies: selectedInterests.map(
+                (interest) =>
+                  arrayOfUserInterests.find((item) => item.id === interest.id)
+                    ?.name
+              ),
+              startSign: arrayOfUserSigns.find(
+                (item) => item.id === selectedSign.id
+              )?.name,
+            },
           },
-        },
-      ],
-    });
+        ],
+      });
+    } catch (error: any) {
+      console.error(error.message);
+    }
   };
 
   return (

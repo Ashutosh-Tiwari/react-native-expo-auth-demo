@@ -1,7 +1,4 @@
-export interface UserAboutModel {
-  id: number;
-  name: string;
-}
+import { UserAboutModel } from "navigation/Routing/paramList";
 
 export const arrayOfUserInterests: UserAboutModel[] = [
   { id: 1, name: "Sports" },

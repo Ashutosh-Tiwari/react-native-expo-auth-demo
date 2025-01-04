@@ -6,19 +6,14 @@ import {
   verifyEmailOtpAction,
   verifyOtpAction,
 } from "./userActions";
-
-interface LocationData {
-  city: string;
-  state: string;
-  country: string;
-}
+import { LocationData, UserAboutModel } from "navigation/Routing/paramList";
 
 interface UserState {
   mobile: string;
   email: string;
   name: string;
-  interests: string[];
-  starSign: string;
+  interests: UserAboutModel[];
+  starSign: UserAboutModel;
   location: LocationData | null;
   token: string;
   loading: boolean;
@@ -30,7 +25,7 @@ const initialState: UserState = {
   email: "",
   name: "",
   interests: [],
-  starSign: "",
+  starSign: { id: 0, name: "" },
   location: { city: "", state: "", country: "" },
   token: "",
   loading: false,
@@ -50,10 +45,10 @@ const userSlice = createSlice({
     setName(state, action: PayloadAction<string>) {
       state.name = action.payload;
     },
-    setInterests(state, action: PayloadAction<string[]>) {
+    setInterests(state, action: PayloadAction<UserAboutModel[]>) {
       state.interests = action.payload;
     },
-    setStarSign(state, action: PayloadAction<string>) {
+    setStarSign(state, action: PayloadAction<UserAboutModel>) {
       state.starSign = action.payload;
     },
     setLocation(state, action: PayloadAction<LocationData | null>) {
