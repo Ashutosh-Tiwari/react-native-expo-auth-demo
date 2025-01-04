@@ -10,14 +10,18 @@ const WelcomeScreen = ({
   const { firstName, phoneNumber, email, location, hobbies, startSign } =
     route.params;
 
+  const formattedHobbies = Array.isArray(hobbies)
+    ? hobbies.map((hobby) => hobby.name).join(", ")
+    : "hobbies";
+
   return (
     <ScreenWrapper style={styles.container}>
       <Text>{`Good morning ${firstName ?? "first name"}\n`}</Text>
       <Text>{`Your phone number is: ${phoneNumber ?? "phone"}`}</Text>
       <Text>{`Your email is: ${email ?? "email"}`}</Text>
-      <Text>{`You are located in ${location ?? "location"}`}</Text>
-      <Text>{`Your hobbies are  ${hobbies.toString() ?? "hobbies"}`}</Text>
-      <Text>{`Your start sign is ${startSign ?? "star sign"}`}</Text>
+      <Text>{`You are located in ${location?.city ?? "location"}`}</Text>
+      <Text>{`Your hobbies are  ${formattedHobbies ?? "hobbies"}`}</Text>
+      <Text>{`Your start sign is ${startSign.name ?? "star sign"}`}</Text>
     </ScreenWrapper>
   );
 };
