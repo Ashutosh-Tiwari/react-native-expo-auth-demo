@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
-  GestureResponderEvent,
+  ActivityIndicator,
 } from "react-native";
 
 interface CustomButtonProps {
@@ -15,6 +15,7 @@ interface CustomButtonProps {
   style?: object;
   textStyle?: object;
   disabled?: boolean;
+  loading?: boolean;
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
@@ -23,6 +24,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   style,
   textStyle,
   disabled = false,
+  loading = false,
 }) => {
   const { components, colors } = useTheme() as typeof DEFAULT_THEME;
 
@@ -34,12 +36,16 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         style,
         { opacity: disabled ? 0.5 : 1 },
       ]}
-      disabled={disabled}
+      disabled={disabled || loading}
       onPress={onPress}
     >
-      <Text style={[{ color: colors.text }, styles.buttonText, textStyle]}>
-        {title}
-      </Text>
+      {loading ? (
+        <ActivityIndicator color={colors.text} size="small" />
+      ) : (
+        <Text style={[{ color: colors.text }, styles.buttonText, textStyle]}>
+          {title}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 };

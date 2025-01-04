@@ -8,7 +8,9 @@ import * as yup from "yup";
 import PhoneNumberInput from "components/PhoneNumberInput";
 import CustomButton from "components/CustomButton";
 import { useDispatch } from "react-redux";
-import { setPhoneNumber } from "src/redux/user/userSlice";
+import { sendOtpAction } from "src/redux/user/userActions";
+import { AppDispatch } from "src/redux/store";
+import { showErrorToast } from "src/utils/toast";
 
 interface FormikData {
   phoneNumber: string;
@@ -21,7 +23,7 @@ const schema = yup.object({
 const SignUpPhoneNumberScreen = ({
   navigation,
 }: SignUpNavProps<"SignUpPhoneNumberScreen">) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const {
     values,
@@ -39,9 +41,19 @@ const SignUpPhoneNumberScreen = ({
     },
     validationSchema: schema,
     onSubmit: async () => {
-      dispatch(setPhoneNumber(values.phoneNumber));
-      // TODO: send OTP API for phone
-      navigation.navigate("SignUpOTPVerificationScreen");
+      const resultAction = await dispatch(sendOtpAction(values.phoneNumber));
+      if (sendOtpAction.fulfilled.match(resultAction)) {
+        showErrorToast(
+          "success",
+          resultAction.payload.message ?? "OTP sent successfully - 123456"
+        );
+        navigation.navigate("SignUpOTPVerificationScreen");
+      } else {
+        showErrorToast(
+          "Error",
+          resultAction.error.message ?? "Failed to send OTP"
+        );
+      }
     },
   });
 
@@ -72,6 +84,7 @@ const SignUpPhoneNumberScreen = ({
       <CustomButton
         title="Next"
         disabled={!isValid || isSubmitting || (!dirty && isValid)}
+        loading={isSubmitting}
         style={{ marginHorizontal: 24, marginTop: "10%" }}
         onPress={handleSubmit}
       />

@@ -10,6 +10,7 @@ import DEFAULT_THEME from "constants/theme";
 import WelcomeScreen from "screens/WelcomeScreen";
 import SvgArrowBack from "../../../assets/svgs/arrow_back.svg";
 import COLORS from "constants/color";
+import Toast from "react-native-toast-message";
 
 const Stack = createNativeStackNavigator<RootNavigatorParamList>();
 
@@ -48,6 +49,7 @@ const Routing = () => {
           />
         </Stack.Navigator>
       </NavigationContainer>
+      <Toast />
     </SafeAreaProvider>
   );
 };
