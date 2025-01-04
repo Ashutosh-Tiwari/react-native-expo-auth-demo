@@ -10,8 +10,8 @@ const WelcomeScreen = ({ route }: RootNavProps<"WelcomeScreen">) => {
   return (
     <ScreenWrapper style={styles.container}>
       <Text>{`Good morning ${firstName ?? "first name"}\n`}</Text>
-      <Text>{`Your phone number is: ${phoneNumber ?? "phone"}`}</Text>
-      <Text>{`Your email is: ${email ?? "email"}`}</Text>
+      <Text>{`Your phone number is ${phoneNumber ?? "phone"}`}</Text>
+      <Text>{`Your email is ${email ?? "email"}`}</Text>
       <Text>{`You are located in ${location?.city || location?.state || location?.country || "location"}`}</Text>
       <Text>{`Your hobbies are ${hobbies ?? "hobbies"}`}</Text>
       <Text>{`Your start sign is ${startSign ?? "star sign"}`}</Text>

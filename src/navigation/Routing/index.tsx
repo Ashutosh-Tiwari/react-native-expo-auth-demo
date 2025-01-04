@@ -36,16 +36,13 @@ const Routing = () => {
           <Stack.Screen
             name="WelcomeScreen"
             component={WelcomeScreen}
-            options={({ navigation }) => ({
+            options={{
               headerShown: true,
               headerTitle: "Welcome",
               headerShadowVisible: false,
               headerBackVisible: false,
               headerTitleStyle: { fontWeight: "bold" },
-              headerLeft: () => (
-                <HeaderLeft onPress={() => navigation.goBack()} />
-              ),
-            })}
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>

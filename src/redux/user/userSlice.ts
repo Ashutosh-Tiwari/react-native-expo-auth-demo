@@ -90,6 +90,8 @@ const userSlice = createSlice({
         const { token, userDetails } = action.payload;
         state.token = token;
         state.mobile = userDetails.mobile;
+        state.email = userDetails.email ?? "";
+        state.name = userDetails.name ?? "";
         state.loading = false;
       })
       .addCase(verifyOtpAction.rejected, (state, action) => {

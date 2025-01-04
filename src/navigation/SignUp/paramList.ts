@@ -1,5 +1,9 @@
-import { RouteProp } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { CompositeScreenProps, RouteProp } from "@react-navigation/native";
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from "@react-navigation/native-stack";
+import { RootNavigatorParamList } from "navigation/Routing/paramList";
 
 export type SignUpNavigatorParamList = {
   SignUpPhoneNumberScreen: undefined;

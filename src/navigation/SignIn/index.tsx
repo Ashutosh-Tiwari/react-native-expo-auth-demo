@@ -2,8 +2,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SignInNavigatorParamList } from "./paramList";
 import SignInPhoneNumberScreen from "../../screens/SignIn/SignInPhoneNumberScreen";
 import SignInOTPVerificationScreen from "../../screens/SignIn/SignInOTPVerificationScreen";
-import SignInEmailVerificationScreen from "../../screens/SignIn/SignInEmailVerificationScreen";
-import SignInEmailScreen from "screens/SignIn/SignInEmailScreen";
 import COLORS from "constants/color";
 import HeaderBack from "components/HeaderBack";
 
@@ -31,20 +29,6 @@ const SignInNavigator = () => {
       <Stack.Screen
         name="SignInOTPVerificationScreen"
         component={SignInOTPVerificationScreen}
-        options={{
-          headerTitle: "Enter your code",
-        }}
-      />
-      <Stack.Screen
-        name="SignInEmailScreen"
-        component={SignInEmailScreen}
-        options={{
-          headerTitle: "Enter your email",
-        }}
-      />
-      <Stack.Screen
-        name="SignInEmailVerificationScreen"
-        component={SignInEmailVerificationScreen}
         options={{
           headerTitle: "Enter your code",
         }}
