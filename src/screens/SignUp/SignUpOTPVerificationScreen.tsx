@@ -33,9 +33,9 @@ const SignUpOTPVerificationScreen = ({
       code: "",
     },
     validationSchema: schema,
-    onSubmit: async () => {
+    onSubmit: async (values) => {
       const resultAction = await dispatch(
-        verifyOtpAction({ mobile, otp: formik.values.code })
+        verifyOtpAction({ mobile, otp: values.code })
       );
       if (verifyOtpAction.fulfilled.match(resultAction)) {
         showSuccessToast(

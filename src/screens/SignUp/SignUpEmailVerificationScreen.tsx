@@ -33,9 +33,9 @@ const SignUpEmailVerificationScreen = ({
       code: "",
     },
     validationSchema: schema,
-    onSubmit: async () => {
+    onSubmit: async (values) => {
       const resultAction = await dispatch(
-        verifyEmailOtpAction({ email, otp: formik.values.code })
+        verifyEmailOtpAction({ email, otp: values.code })
       );
       if (verifyEmailOtpAction.fulfilled.match(resultAction)) {
         showSuccessToast(

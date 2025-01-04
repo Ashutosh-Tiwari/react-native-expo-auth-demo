@@ -31,11 +31,9 @@ const SignUpEmailScreen = ({
       email: "",
     },
     validationSchema: schema,
-    onSubmit: async () => {
-      dispatch(setEmail(formik.values.email));
-      const resultAction = await dispatch(
-        sendEmailOtpAction(formik.values.email)
-      );
+    onSubmit: async (values) => {
+      dispatch(setEmail(values.email));
+      const resultAction = await dispatch(sendEmailOtpAction(values.email));
       if (sendEmailOtpAction.fulfilled.match(resultAction)) {
         showSuccessToast(
           "success",
