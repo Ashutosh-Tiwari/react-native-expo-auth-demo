@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { sendOtpAction } from "src/redux/user/userActions";
 import { AppDispatch } from "src/redux/store";
 import { showErrorToast } from "src/utils/toast";
+import { setPhoneNumber } from "src/redux/user/userSlice";
 
 interface FormikData {
   phoneNumber: string;
@@ -41,6 +42,7 @@ const SignUpPhoneNumberScreen = ({
     },
     validationSchema: schema,
     onSubmit: async () => {
+      dispatch(setPhoneNumber(values.phoneNumber));
       const resultAction = await dispatch(sendOtpAction(values.phoneNumber));
       if (sendOtpAction.fulfilled.match(resultAction)) {
         showErrorToast(
@@ -49,10 +51,7 @@ const SignUpPhoneNumberScreen = ({
         );
         navigation.navigate("SignUpOTPVerificationScreen");
       } else {
-        showErrorToast(
-          "Error",
-          resultAction.error.message ?? "Failed to send OTP"
-        );
+        showErrorToast("Error", "Invalid mobile. Try another number.");
       }
     },
   });
