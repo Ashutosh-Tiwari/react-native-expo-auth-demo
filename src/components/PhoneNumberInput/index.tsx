@@ -4,10 +4,11 @@ import { useTheme } from "@react-navigation/native";
 import DEFAULT_THEME from "constants/theme";
 import COLORS from "constants/color";
 import { MobileInputProps } from "./interface";
+import InputHelperText from "components/InputHelperText";
 
 const PhoneNumberInput: React.FC<MobileInputProps> = (props) => {
   const theme = useTheme() as typeof DEFAULT_THEME;
-  const { components, colors } = theme;
+  const { components } = theme;
   const { error, helperText, style, code, ...inputProps } = props;
 
   const styles = useMemo(() => {
@@ -20,31 +21,42 @@ const PhoneNumberInput: React.FC<MobileInputProps> = (props) => {
       },
       cotainer: {
         borderWidth: 1,
-        borderColor: components.input.borderColor,
+        borderColor: error ? COLORS.error : COLORS.primary,
         borderRadius: 8,
         paddingHorizontal: 14,
         flexDirection: "row",
         alignItems: "center",
-        ...props.outerStyle,
+        ...inputProps.outerStyle,
       },
       divider: {
         height: "100%",
         width: 1,
         marginHorizontal: 12,
-        backgroundColor: colors.text,
+        backgroundColor: COLORS.black,
       },
     });
-  }, [components, props.error, props.outerStyle]);
+  }, [components, error, inputProps.outerStyle]);
 
   return (
-    <View style={styles.cotainer}>
-      <Text>{code}</Text>
-      <View style={styles.divider} />
-      <TextInput
-        style={styles.input}
-        {...inputProps}
-        placeholderTextColor={COLORS.input_placeholder_gray}
-      />
+    <View>
+      <View style={styles.cotainer}>
+        <Text>{code}</Text>
+        <View style={styles.divider} />
+        <TextInput
+          style={styles.input}
+          selectionColor={COLORS.primaryLight}
+          selectionHandleColor={COLORS.primaryLight}
+          {...inputProps}
+          placeholderTextColor={COLORS.input_placeholder_gray}
+        />
+      </View>
+      {helperText && (
+        <InputHelperText
+          helperTextStyle={props.helperTextStyle}
+          text={helperText}
+          error={!!error}
+        />
+      )}
     </View>
   );
 };

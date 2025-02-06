@@ -3,11 +3,29 @@ import { SignUpNavigatorParamList } from "../SignUp/paramList";
 import { SignInNavigatorParamList } from "../SignIn/paramList";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
+export interface LocationData {
+  city: string;
+  state: string;
+  country: string;
+}
+
+export interface UserAboutModel {
+  id: number;
+  name: string;
+}
+
 export type RootNavigatorParamList = {
-  GetStarted: undefined;
+  GetStartedScreen: undefined;
   SignUpNavigator: NavigatorScreenParams<SignUpNavigatorParamList>;
   SignInNavigator: NavigatorScreenParams<SignInNavigatorParamList>;
-  Welcome: undefined;
+  WelcomeScreen: {
+    firstName: string;
+    phoneNumber: string;
+    email: string;
+    location: LocationData | null;
+    hobbies: string;
+    startSign: string;
+  };
 };
 
 export type RootNavProps<T extends keyof RootNavigatorParamList> = {

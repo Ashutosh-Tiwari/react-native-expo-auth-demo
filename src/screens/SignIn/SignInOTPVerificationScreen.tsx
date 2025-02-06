@@ -1,45 +1,115 @@
 import React from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-import { SignInNavProps } from "../../navigation/SignIn/paramList";
+import { StyleSheet } from "react-native";
+import { SignInCompositeScreenProps } from "../../navigation/SignIn/paramList";
+import CustomInput from "components/CustomInput";
+import CustomButton from "components/CustomButton";
+import ScreenWrapper from "components/ScreenWrapper";
+import * as yup from "yup";
+import { codeSchema } from "src/utils/validationSchemas";
+import { verifyOtpAction } from "src/redux/user/userActions";
+import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "src/redux/store";
+import { useSelector } from "react-redux";
+import { showErrorToast, showSuccessToast } from "src/utils/toast";
+import { useFormik } from "formik";
+import { useGeolocation } from "src/hooks/useGeoLocation";
+import { REDUX_CONST } from "constants/strings";
+interface FormikData {
+  code: string;
+}
+
+const schema = yup.object({
+  code: codeSchema,
+});
 
 const SignInOTPVerificationScreen = ({
   navigation,
-  route,
-}: SignInNavProps<"SignInOTPVerificationScreen">) => {
+}: SignInCompositeScreenProps) => {
+  const { fetchLocation, loading, error } = useGeolocation();
+  const dispatch = useDispatch<AppDispatch>();
+  const mobile = useSelector((state: RootState) => state.user.mobile);
+
+  const formik = useFormik<FormikData>({
+    initialValues: {
+      code: "",
+    },
+    validationSchema: schema,
+    onSubmit: async (values) => {
+      const resultAction = await dispatch(
+        verifyOtpAction({ mobile, otp: values.code })
+      );
+
+      if (verifyOtpAction.fulfilled.match(resultAction)) {
+        if (!resultAction.payload?.userDetails?.email) {
+          showErrorToast("Error", REDUX_CONST.USER_NOT_REGISTERED);
+          navigation.navigate("SignUpNavigator", {
+            screen: "SignUpEmailScreen",
+          });
+        } else {
+          const userDetails = resultAction.payload.userDetails;
+          const location = await fetchLocation();
+          showSuccessToast(
+            "success",
+            resultAction.payload.message ??
+              "Your OTP verified and updated successfully."
+          );
+          navigation.getParent()?.reset({
+            index: 0,
+            routes: [
+              {
+                name: "WelcomeScreen",
+                params: {
+                  firstName: userDetails.name,
+                  phoneNumber: userDetails.mobile,
+                  email: userDetails.email,
+                  location,
+                  hobbies: "not set yet",
+                  startSign: "not set yet",
+                },
+              },
+            ],
+          });
+        }
+      } else if (verifyOtpAction.rejected.match(resultAction)) {
+        const errorMessage =
+          resultAction.payload?.message || REDUX_CONST.OTP_VERIFY_FAILED;
+        showErrorToast("Error", errorMessage);
+      }
+    },
+  });
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>OTP Verification</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter OTP"
+    <ScreenWrapper>
+      <CustomInput
+        placeholder="Enter your code"
         keyboardType="numeric"
+        value={formik.values.code}
+        onChangeText={formik.handleChange("code")}
+        onBlur={formik.handleBlur("code")}
+        maxLength={6}
+        error={!!(formik.touched.code && formik.errors.code)}
+        helperText={
+          formik.touched.code && formik.errors.code
+            ? formik.errors.code
+            : undefined
+        }
       />
-      <Button
-        title="Verify OTP"
-        onPress={() => navigation.navigate("SignInEmailScreen")}
+      <CustomButton
+        title="Next"
+        style={styles.button}
+        loading={formik.isSubmitting || loading}
+        disabled={
+          !formik.isValid ||
+          formik.isSubmitting ||
+          (!formik.dirty && formik.isValid)
+        }
+        onPress={formik.handleSubmit}
       />
-    </View>
+    </ScreenWrapper>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 16,
-  },
-  input: {
-    width: "100%",
-    padding: 8,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    marginBottom: 16,
-  },
+  button: { marginHorizontal: 24, marginTop: "40%" },
 });
 
 export default SignInOTPVerificationScreen;

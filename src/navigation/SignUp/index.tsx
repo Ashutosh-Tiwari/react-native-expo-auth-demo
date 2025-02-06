@@ -8,20 +8,10 @@ import SignUpEmailVerificationScreen from "screens/SignUp/SignUpEmailVerificatio
 import SignUpAboutMeScreen from "screens/SignUp/SignUpAboutMeScreen";
 import SignUpNameScreen from "screens/SignUp/SignUpNameScreen";
 import COLORS from "constants/color";
-import SvgArrowBack from "../../../assets/svgs/arrow_back.svg";
+import HeaderBack from "components/HeaderBack";
 
 const Stack = createNativeStackNavigator<SignUpNavigatorParamList>();
 
-const HeaderLeft = ({ onPress }: { onPress: () => void }) => {
-  return (
-    <SvgArrowBack
-      width={24}
-      height={24}
-      fill={COLORS.black}
-      onPress={onPress}
-    />
-  );
-};
 const SignUpNavigator = () => {
   return (
     <Stack.Navigator
@@ -30,7 +20,7 @@ const SignUpNavigator = () => {
         headerShadowVisible: false,
         headerBackVisible: false,
         headerTitleStyle: { fontWeight: "bold" },
-        headerLeft: () => <HeaderLeft onPress={() => navigation.goBack()} />,
+        headerLeft: () => <HeaderBack onPress={() => navigation.goBack()} />,
       })}
       initialRouteName="SignUpPhoneNumberScreen"
     >
@@ -72,7 +62,9 @@ const SignUpNavigator = () => {
       <Stack.Screen
         name="SignUpAboutMeScreen"
         component={SignUpAboutMeScreen}
-        options={{ headerShown: false }}
+        options={{
+          title: "About me",
+        }}
       />
     </Stack.Navigator>
   );

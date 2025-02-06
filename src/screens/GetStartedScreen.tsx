@@ -4,7 +4,7 @@ import { RootNavProps } from "../navigation/Routing/paramList";
 import CustomButton from "components/CustomButton";
 import ScreenWrapper from "components/ScreenWrapper";
 
-const GetStartedScreen = ({ navigation }: RootNavProps<"GetStarted">) => {
+const GetStartedScreen = ({ navigation }: RootNavProps<"GetStartedScreen">) => {
   return (
     <ScreenWrapper style={styles.container}>
       <Text style={styles.textBold}>Get Started</Text>
@@ -18,6 +18,14 @@ const GetStartedScreen = ({ navigation }: RootNavProps<"GetStarted">) => {
             navigation.navigate("SignUpNavigator", {
               screen: "SignUpPhoneNumberScreen",
             });
+            // navigation.navigate("WelcomeScreen", {
+            //   firstName: "John",
+            //   phoneNumber: "1234567890",
+            //   email: "email",
+            //   location: "location",
+            //   hobbies: ["Abc", "Def"],
+            //   startSign: "Star sign",
+            // });
           }}
         />
         <CustomButton
@@ -51,6 +59,8 @@ const styles = StyleSheet.create({
   textBold: {
     fontSize: 24,
     fontWeight: "bold",
+    alignSelf: "flex-start",
+    marginStart: 24,
   },
 });
 
